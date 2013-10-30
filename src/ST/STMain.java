@@ -11,6 +11,7 @@ public class STMain {
 		// New A Empty List
 		List newList = new List();
 
+		System.out.println("###### List ######");
 		// Add
 		System.out.println("###### 新增物件 ######");
 		System.out.println("###### 原始List ######");
@@ -47,4 +48,34 @@ public class STMain {
 		newList.showList();
 	}
 
+	public void dataStructuresD2() {
+		Stack newStack = new Stack();
+
+		System.out.println("###### Stack ######");
+		// Push
+		System.out.println("###### Push ######");
+		System.out.println("###### 原始Stack ######");
+		newStack.showStack();
+
+		System.out.println(">> Push: " + newStack.push(true));
+		System.out.println(">> Push: " + newStack.push('A'));
+		System.out.println(">> Push: " + newStack.push(1000));
+		System.out.println(">> Push: " + newStack.push("TEST"));
+
+		System.out.println("###### 結果Stack ######");
+		newStack.showStack();
+
+		// Pop
+		System.out.println("###### Pop ######");
+		System.out.println("###### 原始Stack ######");
+		newStack.showStack();
+
+		System.out.println(">> Pop: " + newStack.pop());
+		System.out.println("###### 結果Stack ######");
+		newStack.showStack();
+
+		System.out.println(">> Pop: " + newStack.pop());
+		System.out.println("###### 結果Stack ######");
+		newStack.showStack();
+	}
 }

@@ -8,9 +8,8 @@ package ST;
  */
 public class List {
 	private int size = 0;
-
-	public Node first = null;
-	public Node last = null;
+	private Node first = null;
+	private Node last = null;
 
 	public List(Object data) {
 		this.first = new Node(data);
