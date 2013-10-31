@@ -291,7 +291,7 @@ public class FlowEx {
 			System.out.printf("number %d > ", i + 1);
 			if (input.hasNext())
 				num[i] = input.nextDouble();
-			
+
 			positive = num[i] > 0 ? positive + 1 : positive;
 			zero = num[i] == 0 ? zero + 1 : zero;
 			negative = num[i] < 0 ? negative + 1 : negative;
@@ -300,5 +300,34 @@ public class FlowEx {
 		System.out.println("正數：" + positive);
 		System.out.println("零：" + zero);
 		System.out.println("負數：" + negative);
+	}
+
+	// (簡單物件)(成績簿) s1
+	public static void s1() {
+		Scanner input = new Scanner(System.in);
+		GradeBook newBook = new GradeBook();
+
+		System.out.print("科目名稱：");
+		if (input.hasNext())
+			newBook.setCourseName(input.nextLine());
+
+		System.out.printf("科目名稱：%s\n", newBook.getCourseName());
+		newBook.displayMessage();
+	}
+
+	// (簡單物件)(成績簿) s2
+	public static void s2() {
+		GradeBook newBookST = new GradeBook("軟體技術");
+		GradeBook newBookML = new GradeBook("機器學習");
+
+		System.out.printf("科目名稱：%s\n", newBookST.getCourseName());
+		System.out.printf("科目名稱：%s\n", newBookML.getCourseName());
+	}
+
+	// (簡單物件)(成績簿) s3
+	public static void s3() {
+		GradeBook newBookST = new GradeBook("軟體技術", "魏世杰");
+		
+		newBookST.displayMessage();
 	}
 }
