@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.regex.*;
 
 public class FlowEx {
+	static double max = Double.MIN_VALUE;
+	static double min = Double.MAX_VALUE;
 
 	// (輸出練習) o1
 	public static void o1() {
@@ -182,5 +184,121 @@ public class FlowEx {
 			System.out.println("請重新輸入一個字元!!");
 			inChar = '\0';
 		} while (true);
+	}
+
+	// (比較練習) f1
+	public static void f1() {
+		Scanner input = new Scanner(System.in);
+		double a = 0, b = 0, c = 0, sum = 0;
+
+		System.out.println("輸入三個數字 a, b, c");
+		System.out.print("a = ");
+		if (input.hasNext())
+			a = input.nextDouble();
+
+		max = a > max ? a : max;
+		min = a < min ? a : min;
+
+		System.out.print("b = ");
+		if (input.hasNext())
+			b = input.nextDouble();
+
+		max = b > max ? b : max;
+		min = b < min ? b : min;
+
+		System.out.print("c = ");
+		if (input.hasNext())
+			c = input.nextDouble();
+
+		max = c > max ? c : max;
+		min = c < min ? c : min;
+
+		sum = a + b + c;
+
+		System.out.println("和 = " + sum);
+		System.out.println("平均 = " + (sum / 3));
+		System.out.println("積 = " + (a * b * c));
+		System.out.println("最大值 = " + max);
+		System.out.println("最小值 = " + min);
+	}
+
+	// (比較練習) f2
+	public static void f2() {
+		Scanner input = new Scanner(System.in);
+		double a = 0, b = 0;
+
+		System.out.println("輸入兩數字 a, b");
+		System.out.print("a = ");
+		if (input.hasNext())
+			a = input.nextDouble();
+
+		System.out.print("b = ");
+		if (input.hasNext())
+			b = input.nextDouble();
+
+		if (a > b)
+			System.out.println(a + " > " + b);
+		else if (a == b)
+			System.out.println(a + " = " + b);
+		else if (a < b)
+			System.out.println(a + " < " + b);
+	}
+
+	// (比較練習) f3
+	public static void f3() {
+		Scanner input = new Scanner(System.in);
+		double[] num = new double[5];
+
+		System.out.println("輸入五個數字");
+		for (int i = 0; i < 5; i++) {
+			System.out.printf("number %d > ", i + 1);
+			if (input.hasNext())
+				num[i] = input.nextDouble();
+			max = num[i] > max ? num[i] : max;
+			min = num[i] < min ? num[i] : min;
+		}
+
+		System.out.println("最大值 = " + max);
+		System.out.println("最小值 = " + min);
+	}
+
+	// (比較練習) f4
+	public static void f4() {
+		Scanner input = new Scanner(System.in);
+		double a = 0, b = 0;
+
+		System.out.println("輸入兩數字 a, b");
+		System.out.print("a = ");
+		if (input.hasNext())
+			a = input.nextDouble();
+
+		System.out.print("b = ");
+		if (input.hasNext())
+			b = input.nextDouble();
+
+		if (a % b == 0)
+			System.out.printf("%.0f 為 %.0f 的倍數！\n", a, b);
+	}
+
+	// (比較練習) f5
+	public static void f5() {
+		Scanner input = new Scanner(System.in);
+		double[] num = new double[5];
+		int positive = 0, zero = 0, negative = 0;
+
+		System.out.println("輸入五個數字");
+		for (int i = 0; i < 5; i++) {
+			System.out.printf("number %d > ", i + 1);
+			if (input.hasNext())
+				num[i] = input.nextDouble();
+			
+			positive = num[i] > 0 ? positive + 1 : positive;
+			zero = num[i] == 0 ? zero + 1 : zero;
+			negative = num[i] < 0 ? negative + 1 : negative;
+		}
+
+		System.out.println("正數：" + positive);
+		System.out.println("零：" + zero);
+		System.out.println("負數：" + negative);
 	}
 }
