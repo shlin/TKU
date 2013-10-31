@@ -335,21 +335,123 @@ public class FlowEx {
 	public static void s4() {
 		FlowExAccount newAccount = new FlowExAccount(50);
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
-		
+
 		System.out.println("存入 25");
 		newAccount.credit(25);
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
 	}
-	
+
 	// (簡單物件)(戶頭) s5
 	public static void s5() {
 		FlowExAccount newAccount = new FlowExAccount(50);
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
-		
+
 		System.out.println("提領：" + newAccount.debit(25));
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
-		
+
 		System.out.println("提領：" + newAccount.debit(35));
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
+	}
+
+	// (簡單物件)(員工) s6
+	public static void s6() {
+		FlowExEmployee empA = new FlowExEmployee("蟹", "老闆", 100000);
+		FlowExEmployee empB = new FlowExEmployee("派", "大星", 80000);
+
+		System.out.println(empA.getLastName() + empA.getFirstName() + "的年薪："
+				+ (empA.getSalary() * 12));
+		System.out.println(empB.getLastName() + empB.getFirstName() + "的年薪："
+				+ (empB.getSalary() * 12));
+
+		System.out.println("### 調薪後 ###");
+
+		empA.setSalary(empA.getSalary() * 1.1);
+		empB.setSalary(empB.getSalary() * 1.1);
+
+		System.out.println(empA.getLastName() + empA.getFirstName() + "的年薪："
+				+ (empA.getSalary() * 12));
+		System.out.println(empB.getLastName() + empB.getFirstName() + "的年薪："
+				+ (empB.getSalary() * 12));
+
+	}
+
+	// (簡單物件)(BMI) s7
+	public static void s7() {
+		FlowExBMI bmiA = new FlowExBMI("蟹老闆", 60, 1.7);
+
+		System.out.println(bmiA.getName() + "的BMI：" + bmiA.calcBMI());
+	}
+
+	// (簡單物件)(BMI) s8
+	public static void s8() {
+		FlowExBMI bmiA = new FlowExBMI("蟹老闆", 60, 1.7);
+
+		bmiA.displayMessage();
+	}
+
+	// (簡單物件)(BMI) s9
+	public static void s9() {
+		FlowExBMI bmiA = new FlowExBMI("蟹老闆", 60, 1.7);
+
+		bmiA.displayMessage();
+	}
+
+	// (簡單物件)(發票) s10
+	public static void s10() {
+		FlowExInvoice newInvoice = new FlowExInvoice("0001", "美味蟹堡", 2, 10);
+		System.out.println("發票金額：" + newInvoice.getInvoiceAmount());
+	}
+
+	// (簡單物件)(日期) s11
+	public static void s11() {
+		FlowExDate newDate = new FlowExDate(2013, 11, 1);
+		newDate.displayDate();
+	}
+
+	// (簡單物件)(目標心跳率) s12
+	public static void s12() {
+		FlowExHeartRates newPatient = new FlowExHeartRates("派", "大星", 1988, 6,
+				5);
+
+		System.out.println("年齡：" + newPatient.calcAge());
+		newPatient.calcTargetHeartRate();
+	}
+
+	// (簡單物件)(健康記錄) s13
+	public static void s13() {
+		FlowExHealthProfile newPatient = new FlowExHealthProfile("派", "大星", 1988, 6,
+				5, 170, 60);
+
+		System.out.println("年齡：" + newPatient.calcAge());
+		newPatient.calcTargetHeartRate();
+		newPatient.printBMI();
+	}
+
+	// (遞迴練習) r7
+	public static void r7() {
+		Scanner input = new Scanner(System.in);
+		int[] inputData = new int[100];
+		int index = 0;
+
+		do {
+			if (input.hasNextInt()) {
+				inputData[index] = input.nextInt();
+				if (inputData[index] == -1)
+					break;
+				index++;
+			}
+		} while (true);
+
+		r7Method(inputData, 0);
+	}
+
+	public static boolean r7Method(int[] data, int index) {
+		if (data[index] == -1)
+			return true;
+
+		if (r7Method(data, index + 1))
+			System.out.print(data[index] + " ");
+
+		return true;
 	}
 }
