@@ -327,7 +327,29 @@ public class FlowEx {
 	// (簡單物件)(成績簿) s3
 	public static void s3() {
 		GradeBook newBookST = new GradeBook("軟體技術", "魏世杰");
-		
+
 		newBookST.displayMessage();
+	}
+
+	// (簡單物件)(戶頭) s4
+	public static void s4() {
+		Account newAccount = new Account(50);
+		System.out.printf("餘額：%f\n", newAccount.getBalance());
+		
+		System.out.println("存入 25");
+		newAccount.credit(25);
+		System.out.printf("餘額：%f\n", newAccount.getBalance());
+	}
+	
+	// (簡單物件)(戶頭) s5
+	public static void s5() {
+		Account newAccount = new Account(50);
+		System.out.printf("餘額：%f\n", newAccount.getBalance());
+		
+		System.out.println("提領：" + newAccount.debit(25));
+		System.out.printf("餘額：%f\n", newAccount.getBalance());
+		
+		System.out.println("提領：" + newAccount.debit(35));
+		System.out.printf("餘額：%f\n", newAccount.getBalance());
 	}
 }
