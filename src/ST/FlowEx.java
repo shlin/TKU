@@ -419,12 +419,141 @@ public class FlowEx {
 
 	// (簡單物件)(健康記錄) s13
 	public static void s13() {
-		FlowExHealthProfile newPatient = new FlowExHealthProfile("派", "大星", 1988, 6,
-				5, 170, 60);
+		FlowExHealthProfile newPatient = new FlowExHealthProfile("派", "大星",
+				1988, 6, 5, 170, 60);
 
 		System.out.println("年齡：" + newPatient.calcAge());
 		newPatient.calcTargetHeartRate();
 		newPatient.printBMI();
+	}
+
+	// (公式練習) i1
+	public static void funcI1() {
+		Scanner input = new Scanner(System.in);
+		int intNum = 0;
+
+		System.out.print("請輸入一個整數 > ");
+		if (input.hasNext())
+			intNum = input.nextInt();
+
+		System.out.printf("%d 為%s\n", intNum, intNum % 2 == 0 ? "偶數" : "奇數");
+	}
+
+	// (公式練習) i2
+	public static void funcI2() {
+		Scanner input = new Scanner(System.in);
+		int intScore = 0;
+		String level = new String();
+
+		do {
+			System.out.print("請輸入一個整數 > ");
+			if (input.hasNext())
+				intScore = input.nextInt();
+
+			if (intScore >= 0 && intScore <= 100)
+				break;
+		} while (true);
+
+		if (intScore >= 90 && intScore <= 100)
+			level = "A";
+		else if (intScore >= 80 && intScore < 90)
+			level = "B";
+		else if (intScore >= 70 && intScore < 80)
+			level = "C";
+		else if (intScore >= 60 && intScore < 70)
+			level = "D";
+		else
+			level = "F";
+
+		System.out.println("等級：" + level);
+
+	}
+
+	// (公式練習) i3
+	public static void funcI3() {
+		Scanner input = new Scanner(System.in);
+		int x = 0;
+		double y = 0;
+
+		System.out.print("x = ");
+		x = input.hasNext() ? input.nextInt() : 0;
+
+		if (x < -1)
+			y = 3 * Math.pow(x, 2);
+		else if (x >= -1 && x <= 1)
+			y = Math.pow(x, 3) + 3 * x - 3;
+		else if (x > 1)
+			y = 2 * x + 3;
+
+		System.out.println("y = " + y);
+	}
+
+	// (公式練習) i4
+	public static void funcI4() {
+		Scanner input = new Scanner(System.in);
+		int a = 0, b = 0, c = 0;
+		double x1 = 0, x2 = 0;
+
+		System.out.println("求解 a * x ^ 2 + b * x + c = 0 的根 x = ?");
+
+		System.out.print("a = ");
+		a = input.hasNext() ? input.nextInt() : 0;
+		System.out.print("b = ");
+		b = input.hasNext() ? input.nextInt() : 0;
+		System.out.print("c = ");
+		c = input.hasNext() ? input.nextInt() : 0;
+
+		if (b * b == 4 * a * c) {
+			x1 = x2 = -(b / 2 * a);
+			System.out.println("有重根 x = " + x1);
+		} else if (b * b > 4 * a * c) {
+			x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+			x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+
+			System.out.println("x 為 " + x1 + " 及 " + x2);
+		} else
+			System.out.println("沒有實根，no real root");
+	}
+
+	// (公式練習) i5
+	public static void funcI5() {
+		Scanner input = new Scanner(System.in);
+		int a = 0, b = 0, c = 0;
+		int aa = 0, bb = 0, cc = 0;
+		int swap = 0;
+		boolean isRight = false, isObtuse = false, isSharp = false, isNonTriangle = false;
+
+		System.out.println("輸入三角形的三邊長a, b, c");
+
+		System.out.print("a = ");
+		a = input.hasNext() ? input.nextInt() : 0;
+		System.out.print("b = ");
+		b = input.hasNext() ? input.nextInt() : 0;
+		System.out.print("c = ");
+		c = input.hasNext() ? input.nextInt() : 0;
+
+		if (a > c) {
+			swap = c;
+			c = a;
+			a = swap;
+		} else if (b > c) {
+			swap = c;
+			c = a;
+			a = swap;
+		}
+
+		aa = a * a;
+		bb = b * b;
+		cc = c * c;
+		if (c < a + b) {
+			if (cc == aa + bb)
+				System.out.println("此為直角三角形");
+			else if (cc > aa + bb)
+				System.out.println("此為鈍角三角形");
+			else if (cc < aa + bb)
+				System.out.println("此為銳角三角形");
+		}else
+			System.out.println("這不是三角形");
 	}
 
 	// (遞迴練習) r7

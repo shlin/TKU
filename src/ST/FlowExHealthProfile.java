@@ -23,7 +23,7 @@ public class FlowExHealthProfile {
 		setHeight(height);
 		setWeight(weight);
 		
-		bmi = new FlowExBMI(lastName, weight, (double) height / 100);
+		bmi = new FlowExBMI(lastName + firstName, weight, (double) height / 100);
 		heartRate = new FlowExHeartRates(lastName, firstName, year, month, day);
 	}
 	
