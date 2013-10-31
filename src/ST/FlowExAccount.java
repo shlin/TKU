@@ -1,9 +1,9 @@
 package ST;
 
-public class Account {
+public class FlowExAccount {
 	private double balance = 0;
 	
-	public Account(double initialBalance){
+	public FlowExAccount(double initialBalance){
 		balance = initialBalance > 0 ? initialBalance : 0;
 	}
 	

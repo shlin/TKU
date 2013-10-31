@@ -305,7 +305,7 @@ public class FlowEx {
 	// (簡單物件)(成績簿) s1
 	public static void s1() {
 		Scanner input = new Scanner(System.in);
-		GradeBook newBook = new GradeBook();
+		FlowExGradeBook newBook = new FlowExGradeBook();
 
 		System.out.print("科目名稱：");
 		if (input.hasNext())
@@ -317,8 +317,8 @@ public class FlowEx {
 
 	// (簡單物件)(成績簿) s2
 	public static void s2() {
-		GradeBook newBookST = new GradeBook("軟體技術");
-		GradeBook newBookML = new GradeBook("機器學習");
+		FlowExGradeBook newBookST = new FlowExGradeBook("軟體技術");
+		FlowExGradeBook newBookML = new FlowExGradeBook("機器學習");
 
 		System.out.printf("科目名稱：%s\n", newBookST.getCourseName());
 		System.out.printf("科目名稱：%s\n", newBookML.getCourseName());
@@ -326,14 +326,14 @@ public class FlowEx {
 
 	// (簡單物件)(成績簿) s3
 	public static void s3() {
-		GradeBook newBookST = new GradeBook("軟體技術", "魏世杰");
+		FlowExGradeBook newBookST = new FlowExGradeBook("軟體技術", "魏世杰");
 
 		newBookST.displayMessage();
 	}
 
 	// (簡單物件)(戶頭) s4
 	public static void s4() {
-		Account newAccount = new Account(50);
+		FlowExAccount newAccount = new FlowExAccount(50);
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
 		
 		System.out.println("存入 25");
@@ -343,7 +343,7 @@ public class FlowEx {
 	
 	// (簡單物件)(戶頭) s5
 	public static void s5() {
-		Account newAccount = new Account(50);
+		FlowExAccount newAccount = new FlowExAccount(50);
 		System.out.printf("餘額：%f\n", newAccount.getBalance());
 		
 		System.out.println("提領：" + newAccount.debit(25));

@@ -1,17 +1,17 @@
 package ST;
 
-public class GradeBook {
+public class FlowExGradeBook {
 	private String courseName = new String();
 	private String instructor = new String();
 
-	public GradeBook() {
+	public FlowExGradeBook() {
 	}
 
-	public GradeBook(String name) {
+	public FlowExGradeBook(String name) {
 		setCourseName(name);
 	}
 	
-	public GradeBook(String course, String instructor){
+	public FlowExGradeBook(String course, String instructor){
 		setCourseName(course);
 		setInstructorName(instructor);
 	}
