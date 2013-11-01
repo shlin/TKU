@@ -521,7 +521,6 @@ public class FlowEx {
 		int a = 0, b = 0, c = 0;
 		int aa = 0, bb = 0, cc = 0;
 		int swap = 0;
-		boolean isRight = false, isObtuse = false, isSharp = false, isNonTriangle = false;
 
 		System.out.println("輸入三角形的三邊長a, b, c");
 
@@ -552,8 +551,52 @@ public class FlowEx {
 				System.out.println("此為鈍角三角形");
 			else if (cc < aa + bb)
 				System.out.println("此為銳角三角形");
-		}else
+		} else
 			System.out.println("這不是三角形");
+	}
+
+	// (統計練習) s1 同上 f3
+	// (統計練習) s2 同上 f5
+	public static void statS1() {
+		Scanner input = new Scanner(System.in);
+		double a = 0, b = 0, c = 0;
+		double max = Double.MIN_VALUE, min = Double.MAX_VALUE;
+
+		System.out.println("輸入三個實數 a, b, c");
+		System.out.print("a > ");
+		a = input.hasNext() ? input.nextDouble() : 0;
+		System.out.print("b > ");
+		b = input.hasNext() ? input.nextDouble() : 0;
+		System.out.print("c > ");
+		c = input.hasNext() ? input.nextDouble() : 0;
+
+		max = a > b ? a > c ? a : c : b > c ? b : c;
+		min = a < b ? a < c ? a : c : b < c ? b : c;
+
+		System.out.println("max = " + max);
+		System.out.println("min = " + min);
+	}
+
+	// (數字拆解) d1
+	public static void d1() {
+		Scanner input = new Scanner(System.in);
+		int intNum = 0, isSeven = 0;
+		Integer num = new Integer(0);
+
+		do {
+			System.out.print("請輸入一個五位數的整數 > ");
+			intNum = input.hasNext() ? input.nextInt() : 0;
+			if (intNum > 9999 && intNum <= 99999)
+				break;
+		} while (true);
+
+		num = intNum;
+		for(int i =0; i < 5; i++){
+			if(num.toString().charAt(i) == '7')
+				isSeven ++;
+		}
+		
+		System.out.println("數字7有" + isSeven + "個");
 	}
 
 	// (遞迴練習) r7
