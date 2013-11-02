@@ -433,8 +433,7 @@ public class FlowEx {
 		int intNum = 0;
 
 		System.out.print("請輸入一個整數 > ");
-		if (input.hasNext())
-			intNum = input.nextInt();
+		intNum = input.hasNext() ? input.nextInt() : 0;
 
 		System.out.printf("%d 為%s\n", intNum, intNum % 2 == 0 ? "偶數" : "奇數");
 	}
@@ -580,23 +579,210 @@ public class FlowEx {
 	// (數字拆解) d1
 	public static void d1() {
 		Scanner input = new Scanner(System.in);
-		int intNum = 0, isSeven = 0;
-		Integer num = new Integer(0);
+		int source = 0, isSeven = 0;
 
 		do {
 			System.out.print("請輸入一個五位數的整數 > ");
-			intNum = input.hasNext() ? input.nextInt() : 0;
-			if (intNum > 9999 && intNum <= 99999)
+			source = input.hasNext() ? input.nextInt() : 0;
+			if (source > 9999 && source <= 99999)
 				break;
 		} while (true);
 
-		num = intNum;
-		for(int i =0; i < 5; i++){
-			if(num.toString().charAt(i) == '7')
-				isSeven ++;
+		for (int i = 0; i < 5; i++) {
+			if (source % 10 == 7)
+				isSeven++;
+			source /= 10;
 		}
-		
-		System.out.println("數字7有" + isSeven + "個");
+
+		System.out.printf("數字 7有%2d個\n", isSeven);
+	}
+
+	// (數字拆解) d3
+	public static void d3() {
+		Scanner input = new Scanner(System.in);
+		String source = new String();
+		String result = new String();
+		int sum = 0;
+
+		do {
+			System.out.print("請輸入一個八位數的整數 > ");
+			source = input.hasNext() ? input.nextLine() : "";
+			if (Integer.parseInt(source) > 9999999
+					&& Integer.parseInt(source) <= 99999999)
+				break;
+		} while (true);
+
+		for (int i = 0; i < source.length(); i++)
+			result += source.charAt(source.length() - i - 1);
+
+		sum = Integer.parseInt(source) + Integer.parseInt(result);
+
+		System.out.println("輸入原數：" + source);
+		System.out.println("反　　轉：" + result);
+		System.out.println("相　　加：" + sum);
+	}
+
+	// (數字拆解)(計程車車資計算) d4
+	public static void d4() {
+		Scanner input = new Scanner(System.in);
+		int mileage = 0, fee = 70;
+
+		System.out.print("請輸入里程數(公尺)：");
+		mileage = input.hasNext() ? input.nextInt() : 0;
+
+		if (mileage > 1650) {
+			mileage -= 1650;
+			if (mileage % 350 == 0)
+				fee += 5 * (mileage / 350);
+			else
+				fee += 5 * (mileage / 350) + 5;
+		}
+
+		System.out.println("車資：" + fee);
+	}
+
+	// (數字拆解)(找錢問題) d5
+	public static void d5() {
+		Scanner input = new Scanner(System.in);
+		int price = 0, change = 0;
+		int[] coins = { 500, 100, 50, 20, 10, 5, 1 };
+
+		do {
+			System.out.print("請輸入售價：");
+			price = input.hasNext() ? input.nextInt() : 0;
+
+			if (price > 0 && price < 1000)
+				break;
+
+			System.out.println("價格請介於1 ~ 999之間");
+		} while (true);
+
+		change = 1000 - price;
+
+		System.out.println("各找回：");
+		for (int i = 0; i < coins.length; i++) {
+			System.out.printf("%3d元%2d個\n", coins[i], change / coins[i]);
+			change %= coins[i];
+		}
+	}
+
+	// (數字拆解)(數字轉換為中文大寫) d6
+	public static void d6() {
+		Scanner input = new Scanner(System.in);
+		String[] chinese = { "零", "壹", "貳️", "參", "肆", "伍", "陸", "柒", "捌", "玖" };
+		String[] unit = { "", "拾", "佰", "仟", "萬", "億" };
+		String result = new String();
+		int source = 0, orgNum = 0;
+
+		do {
+			System.out.print("請輸入金額：");
+			source = input.hasNext() ? input.nextInt() : 0;
+
+			if (source >= 0 && source <= 1000000000)
+				break;
+
+			System.out.println("金額請介於0 ~ 1000,000,000之間");
+		} while (true);
+
+		orgNum = source;
+		if (source > 0) {
+			if (source >= 100000000) {
+				if (source / 100000000 == 10)
+					result += "拾億";
+				else
+					result += chinese[source / 100000000] + unit[5];
+				source %= 100000000;
+			}
+
+			if (source >= 10000) {
+				result += d6Method(source / 10000) + unit[4];
+				source %= 10000;
+			}
+
+			if (source < 10000)
+				result += d6Method(source);
+		} else
+			result = chinese[0];
+
+		System.out.printf("%9d, %s\n", orgNum, result);
+	}
+
+	public static String d6Method(int number) {
+		String result = new String();
+		int div = 0;
+		boolean isZero = false;
+		String[] chinese = { "零", "壹", "貳️", "參", "肆", "伍", "陸", "柒", "捌", "玖" };
+		String[] unit = { "", "拾", "佰", "仟", "萬", "億" };
+
+		for (int i = 0; i < 4; i++) {
+			div = number / (int) Math.pow(10, 3 - i);
+			if (div == 0) {
+				isZero = result.isEmpty() ? false : true;
+				continue;
+			}
+
+			result += isZero ? chinese[0] : "";
+			result += chinese[div] + unit[3 - i];
+			number %= Math.pow(10, 3 - i);
+		}
+
+		return result;
+	}
+
+	// (數字拆解)(數字轉換為羅馬數字) d7
+	public static void d7() {
+		Scanner input = new Scanner(System.in);
+		String[] roman = { "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+		int[] intNum = { 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+		String result = new String();
+		int source = 0, div = 0, orgNum = 0;
+
+		do {
+			System.out.print("請輸入一個正整數：");
+			source = input.hasNext() ? input.nextInt() : 0;
+
+			if (source > 0 && source <= 100)
+				break;
+
+			System.out.println("正整數請介於1 ~ 100之間");
+		} while (true);
+
+		orgNum = source;
+		for (int i = 0; i < intNum.length; i++) {
+			div = source / intNum[i];
+			for (int j = 0; j < div; j++)
+				result += roman[i];
+			source %= intNum[i];
+		}
+
+		System.out.printf("%3d, %s\n", orgNum, result);
+	}
+
+	// (數字拆解)(迴文) d8
+	public static void d8() {
+		Scanner input = new Scanner(System.in);
+		int source = 0, orgNum = 0;
+		int left = 0, right = 0;
+		boolean isPalindrome = true;
+
+		do {
+			System.out.print("請輸入一個五位數的整數 > ");
+			source = input.hasNext() ? input.nextInt() : 0;
+			orgNum = source;
+			if (source > 9999 && source <= 99999)
+				break;
+		} while (true);
+
+		for (int i = 0; i < 3; i++) {
+			left = source / (int) Math.pow(10, 4 - 2 * i);
+			right = source % 10;
+
+			isPalindrome = left == right && isPalindrome ? true : false;
+			source %= (int) Math.pow(10, 4 - 2 * i);
+			source /= 10;
+		}
+
+		System.out.printf("%5d, %s迴文\n", orgNum, isPalindrome ? "是" : "不是");
 	}
 
 	// (遞迴練習) r7
