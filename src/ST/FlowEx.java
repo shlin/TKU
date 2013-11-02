@@ -2,6 +2,7 @@ package ST;
 
 import java.util.*;
 import java.util.regex.*;
+import java.text.*;
 
 public class FlowEx {
 	static double max = Double.MIN_VALUE;
@@ -783,6 +784,79 @@ public class FlowEx {
 		}
 
 		System.out.printf("%5d, %s迴文\n", orgNum, isPalindrome ? "是" : "不是");
+	}
+
+	// (生活應用)(猜大小) d11
+	public static void d11() {
+		Scanner input = new Scanner(System.in);
+		Random rand = new Random();
+		int answer = rand.nextInt(1000);
+		int guess = 0;
+		int times = 0;
+
+		do {
+			System.out.print("請輸入數字(1 - 1000)：");
+			if (input.hasNextInt()) {
+				guess = input.nextInt();
+				if (guess >= 1 && guess <= 1000) {
+					times++;
+					if (guess == answer) {
+						System.out.println("<答對>");
+						break;
+					} else if (guess > answer)
+						System.out.println("<太大>");
+					else if (guess < answer)
+						System.out.println("<太小>");
+				}
+			}
+		} while (true);
+
+		System.out.printf("答案%d，你總共猜了%d次\n", answer, times);
+	}
+
+	// (生活應用)(判斷閏年) d12
+	public static void d12() {
+		Scanner input = new Scanner(System.in);
+		int year = 0;
+		boolean isLeap = false;
+
+		System.out.print("請輸入年份 > ");
+		year = input.hasNext() ? input.nextInt() : 0;
+
+		isLeap = year % 4 == 0 ? year % 100 == 0 ? year % 400 == 0 ? true
+				: false : true : false;
+		System.out.printf("%4d為%s年\n", year, isLeap ? "閏" : "平");
+	}
+
+	// (生活應用)(計算日期) d13
+	public static void d13() {
+		Scanner input = new Scanner(System.in);
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		int year = 2001, month = 0, date = 0;
+
+		System.out.println("請輸入2001年的某月(1-12)某日(1-31)");
+		do {
+			System.out.print("請輸入月：");
+			month = input.hasNextInt() ? input.nextInt() : 0;
+			if (month >= 1 && month <= 12)
+				break;
+			System.out.println("月的範圍請落在1 - 12之間");
+		} while (true);
+
+		do {
+			System.out.print("請輸入日：");
+			date = input.hasNextInt() ? input.nextInt() : 0;
+			if (date >= 1 && date <= 31)
+				break;
+			System.out.println("日的範圍請落在1 - 31之間");
+		} while (true);
+
+		cal.set(year, month - 1, date);
+		System.out.printf("%s是第%d天\n", df.format(cal.getTime()),
+				cal.get(Calendar.DAY_OF_YEAR));
+		System.out.printf("%s是%s\n", df.format(cal.getTime()),
+				cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.TAIWAN));
 	}
 
 	// (遞迴練習) r7
