@@ -42,6 +42,7 @@ public class FlowEx {
 	}
 
 	// (輸出練習) o4
+	// (迴圈練習) t1
 	public static void o4() {
 		System.out.println("數字\t平方\t立方");
 
@@ -855,8 +856,89 @@ public class FlowEx {
 		cal.set(year, month - 1, date);
 		System.out.printf("%s是第%d天\n", df.format(cal.getTime()),
 				cal.get(Calendar.DAY_OF_YEAR));
-		System.out.printf("%s是%s\n", df.format(cal.getTime()),
-				cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.TAIWAN));
+		System.out.printf("%s是%s\n", df.format(cal.getTime()), cal
+				.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
+						Locale.TAIWAN));
+	}
+
+	// (迴圈練習)(九九乘法表) t2
+	public static void t2() {
+		// Part a
+		System.out.print("(a)\n  ");
+		for (int i = 1; i <= 9; i++)
+			System.out.printf(" %2d", i);
+		System.out.println("\n +----------------------------");
+		for (int i = 1; i <= 9; i++) {
+			System.out.printf("%d|", i);
+			for (int j = 1; j <= 9; j++)
+				System.out.printf(" %2d", i * j);
+			System.out.print("\n");
+		}
+		System.out.print("\n\n");
+
+		// Part b
+		System.out.print("(b)\n");
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 1; j <= 9; j++)
+				System.out.printf("%d*%d=%2d  ", i, j, i * j);
+			System.out.print("\n");
+		}
+	}
+
+	// (迴圈練習)(畫出高為n的形狀) t3
+	public static void t3() {
+		Scanner input = new Scanner(System.in);
+		int n = 0;
+
+		System.out.print("請輸入高度n：");
+		n = input.hasNextInt() ? input.nextInt() : 0;
+
+		// Part a
+		System.out.println("(a)");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j <= i; j++)
+				System.out.print("*");
+			System.out.print("\n");
+		}
+
+		// Part b
+		System.out.println("(b)");
+		for (int i = 0; i < n; i++) {
+			for (int k = n - i - 1; k > 0; k--)
+				System.out.print(" ");
+			for (int j = 0; j <= i; j++)
+				System.out.print("*");
+			System.out.print("\n");
+		}
+
+		// Part c
+		System.out.println("(c)");
+		for (int i = 0; i < n; i++) {
+			for (int k = n - i - 1; k > 0; k--)
+				System.out.print(" ");
+			for (int j = 0; j <= i; j++)
+				System.out.print("*");
+			for (int l = 0; l <= i - 1; l++)
+				System.out.print("*");
+			System.out.print("\n");
+		}
+
+		// Part d
+		System.out.println("(d)");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < 5; j++)
+				System.out.print("*");
+			System.out.print("\n");
+		}
+
+		// Part e
+		System.out.println("(e)");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < 5; j++)
+				System.out.print(i == 0 || i == n - 1 ? "*"
+						: j == 0 || j == 4 ? "*" : " ");
+			System.out.print("\n");
+		}
 	}
 
 	// (遞迴練習) r7
