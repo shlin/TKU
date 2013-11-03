@@ -941,6 +941,57 @@ public class FlowEx {
 		}
 	}
 
+	// (迴圈練習)(數字拆解) d2 (二進制轉十進制)
+	public static void loopD2() {
+		Scanner input = new Scanner(System.in);
+		int binSrc = 0, binProc = 0, i = 0, decimal = 0;
+
+		System.out.print("請輸入一組二進制碼：");
+		binSrc = input.hasNextInt() ? input.nextInt() : 0;
+
+		binProc = binSrc;
+		while (binProc > 0) {
+			decimal += (int) Math.pow(2, i++) * (binProc % 10);
+			binProc /= 10;
+		}
+
+		System.out.printf("%d => %d\n", binSrc, decimal);
+	}
+
+	// (迴圈練習)(數字拆解) d3 (十進制轉十六進制)
+	public static void loopD3() {
+		Scanner input = new Scanner(System.in);
+		int decimalSrc = 0;
+
+		System.out.print("請輸入一組正整數：");
+		decimalSrc = input.hasNextInt() ? input.nextInt() : 0;
+
+		System.out.printf("%d => %s\n", decimalSrc,
+				Integer.toHexString(decimalSrc));
+	}
+
+	// (迴圈練習)(數字拆解) d4 (判斷11的倍數)
+	public static void loopD4() {
+		Scanner input = new Scanner(System.in);
+		int srcNum = 0, procNum = 0, i = 1;
+		int odd = 0, even = 0;
+
+		System.out.print("請輸入一組正整數：");
+		srcNum = input.hasNextInt() ? input.nextInt() : 0;
+
+		procNum = srcNum;
+		while (procNum != 0) {
+			odd += i % 2 == 1 ? procNum % 10 : 0;
+			even += i % 2 == 0 ? procNum % 10 : 0;
+
+			procNum /= 10;
+			i++;
+		}
+
+		System.out.printf("%d：%s是11的倍數\n", srcNum, (odd - even) % 11 == 0 ? ""
+				: "不");
+	}
+
 	// (遞迴練習) r7
 	public static void r7() {
 		Scanner input = new Scanner(System.in);

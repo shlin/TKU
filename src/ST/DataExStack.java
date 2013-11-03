@@ -5,17 +5,17 @@ package ST;
  * 
  *         Stack
  */
-public class Stack {
+public class DataExStack {
 
 	private int size = 0;
-	private Node head = null;
+	private DataExNode head = null;
 
-	public Stack() {
+	public DataExStack() {
 		size = 0;
 	}
 
 	public Object push(Object data) {
-		Node newNode = new Node(data);
+		DataExNode newNode = new DataExNode(data);
 
 		if (head == null)
 			head = newNode;
@@ -40,7 +40,7 @@ public class Stack {
 	}
 
 	public void showStack() {
-		Node itor = head;
+		DataExNode itor = head;
 		int index = 0;
 
 		System.out.println("<< Stack Nodes >>");

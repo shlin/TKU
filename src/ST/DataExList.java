@@ -6,22 +6,22 @@ package ST;
  *         Double Linked List
  * 
  */
-public class List {
+public class DataExList {
 	private int size = 0;
-	private Node first = null;
-	private Node last = null;
+	private DataExNode first = null;
+	private DataExNode last = null;
 
-	public List(Object data) {
-		this.first = new Node(data);
+	public DataExList(Object data) {
+		this.first = new DataExNode(data);
 		size++;
 	}
 
-	public List() {
+	public DataExList() {
 		size = 0;
 	}
 
 	public void addFirst(Object data) {
-		Node newNode = new Node(data);
+		DataExNode newNode = new DataExNode(data);
 
 		if (first == null) {
 			first = newNode;
@@ -35,7 +35,7 @@ public class List {
 	}
 
 	public void addLast(Object data) {
-		Node newNode = new Node(data);
+		DataExNode newNode = new DataExNode(data);
 
 		if (last == null) {
 			last = newNode;
@@ -81,7 +81,7 @@ public class List {
 	}
 
 	public void showList() {
-		Node itor = first;
+		DataExNode itor = first;
 		int index = 0;
 
 		System.out.println("<< List Nodes >>");
@@ -102,11 +102,11 @@ public class List {
 		return this.size;
 	}
 
-	public Node getFirst() {
+	public DataExNode getFirst() {
 		return this.first;
 	}
 
-	public Node getLast() {
+	public DataExNode getLast() {
 		return this.last;
 	}
 }

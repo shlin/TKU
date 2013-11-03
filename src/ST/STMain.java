@@ -6,7 +6,7 @@ public class STMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		FlowEx.t3();
+		FlowEx.loopD4();
 	}
 
 }

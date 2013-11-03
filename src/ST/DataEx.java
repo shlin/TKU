@@ -3,7 +3,7 @@ package ST;
 public class DataEx {
 	public static void d1List() {
 		// New A Empty List
-		List newList = new List();
+		DataExList newList = new DataExList();
 
 		System.out.println("###### List ######");
 		// Add
@@ -43,7 +43,7 @@ public class DataEx {
 	}
 
 	public static void d2Stack() {
-		Stack newStack = new Stack();
+		DataExStack newStack = new DataExStack();
 
 		System.out.println("###### Stack ######");
 		// Push
