@@ -992,6 +992,180 @@ public class FlowEx {
 				: "不");
 	}
 
+	// (數字列舉練習) n1
+	public static void n1() {
+		Scanner input = new Scanner(System.in);
+		int n = 0, i = 0, val;
+
+		System.out.print("N = ");
+		n = input.hasNextInt() ? input.nextInt() : 0;
+
+		// (a)
+		System.out.print("(a) ");
+		i = 1;
+		while (true) {
+			val = i * 2 - 1;
+			if (val > n)
+				break;
+			System.out.printf(" %d,", val);
+			i++;
+		}
+		System.out.println();
+
+		// (b)
+		System.out.print("(b) ");
+		i = 1;
+		val = 1;
+		while (true) {
+			val += i;
+			if (val > n)
+				break;
+			System.out.printf(" %d,", val);
+			i++;
+		}
+		System.out.println();
+
+		// (c)
+		System.out.print("(c) ");
+		i = 1;
+		val = 1;
+		while (true) {
+			if (i > n)
+				break;
+			for (int j = 0; j < i; j++)
+				System.out.printf(" %d,", i);
+			i++;
+		}
+		System.out.println();
+	}
+
+	// (數字列舉練習) n2
+	public static void n2() {
+		System.out.println("1 ~ 100 可被 7 整除的數有：");
+		for (int i = 1; i * 7 <= 100; i++) {
+			System.out.printf(" %d", i * 7);
+		}
+	}
+
+	// (數字列舉練習) n4
+	public static void n4() {
+		int factorSum = 0;
+		System.out.println("100到900間，所有正整數中不包含自己本身的所有因數和皆等於222者：");
+		for (int i = 100; i <= 900; i++) {
+			for (int j = 1; j < i; j++)
+				factorSum += i % j == 0 ? j : 0;
+
+			if (factorSum == 222)
+				System.out.printf(" %d", i);
+			factorSum = 0;
+		}
+	}
+
+	// (數字列舉練習) n5
+	public static void n5() {
+		System.out.println("邊長(side)小於500,能滿足直角三角形(right triangle)要求的三邊長：");
+
+		for (int a = 1; a < 250; a++) {
+			for (int b = 1; b < 250; b++) {
+				for (int c = 1; c < 250; c++) {
+					if (a * a == b * b + c * c && a + b + c < 500)
+						System.out.printf("a = %d\tb = %d\tc = %d\n", a, b, c);
+				}
+			}
+		}
+	}
+
+	// (數字列舉練習) n6
+	public static void n6() {
+		Scanner input = new Scanner(System.in);
+		int source = 0;
+
+		System.out.print("輸入一個正整數：");
+		source = input.hasNextInt() ? input.nextInt() : 0;
+
+		System.out.println("Factors：");
+		for (int i = 1; i <= source; i++)
+			if (source % i == 0)
+				System.out.printf(" %d", i);
+	}
+
+	// (數字列舉練習) n7 質數判斷
+	public static void n7() {
+		Scanner input = new Scanner(System.in);
+		int source = 0;
+		boolean isPrime = true;
+
+		System.out.print("輸入一個正整數：");
+		source = input.hasNextInt() ? input.nextInt() : 0;
+
+		for (int i = 2; i <= Math.sqrt(source); i++) {
+			isPrime = source % i == 0 ? false : true;
+			if (isPrime == false)
+				break;
+		}
+
+		System.out.printf("%d %s質數\n", source, isPrime ? "是" : "不是");
+	}
+
+	// (數字列舉練習) n8 質數判斷
+	public static void n8() {
+		Scanner input = new Scanner(System.in);
+		int source = 0, factorSum = 0;
+
+		System.out.print("輸入一個正整數：");
+		source = input.hasNextInt() ? input.nextInt() : 0;
+
+		for (int i = 1; i < source; i++)
+			factorSum += source % i == 0 ? i : 0;
+
+		System.out.printf("%d 是%s數\n", source, source == factorSum ? "完全"
+				: source > factorSum ? "過剩" : "不足");
+	}
+
+	// (數字列舉練習) n9 GCD 最大公因數
+	public static void n9() {
+		Scanner input = new Scanner(System.in);
+		int m = 0, n = 0;
+
+		// (a) 輾轉相減法
+		System.out.println("輾轉相減法：" + GCD_dec(510, 100));
+
+		// (b) 輾轉相除法
+		System.out.println("輾轉相除法：" + GCD_div(510, 100));
+	}
+
+	// 輾轉相減法
+	public static int GCD_dec(int m, int n) {
+		if (m == n)
+			return m;
+		if (m < n)
+			return GCD_dec(n, m);
+		return GCD_dec(n, m - n);
+	}
+
+	// 輾轉相除法
+	public static int GCD_div(int m, int n) {
+		if (n == 0)
+			return m;
+		if (m < n)
+			return GCD_div(n, m);
+		return GCD_div(n, m % n);
+	}
+	
+	// (數字列舉練習) n10 最小公倍數
+	public static void n10(){
+		Scanner input = new Scanner(System.in);
+		int a = 0, b = 0;
+		
+		System.out.println("輸入兩正整數：");
+		System.out.print("a > ");
+		a = input.hasNextInt() ? input.nextInt() : 0;
+		System.out.print("b > ");
+		b = input.hasNextInt() ? input.nextInt() : 0;
+		
+		System.out.println("最小公倍數：" + a * b / GCD_div(a, b));
+	}
+
 	// (遞迴練習) r7
 	public static void r7() {
 		Scanner input = new Scanner(System.in);
