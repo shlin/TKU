@@ -561,7 +561,7 @@ public class FlowEx {
 	public static void statS1() {
 		Scanner input = new Scanner(System.in);
 		double a = 0, b = 0, c = 0;
-		double max = Double.MIN_VALUE, min = Double.MAX_VALUE;
+		double max = 0, min = 0;
 
 		System.out.println("輸入三個實數 a, b, c");
 		System.out.print("a > ");
@@ -573,7 +573,7 @@ public class FlowEx {
 
 		max = a > b ? a > c ? a : c : b > c ? b : c;
 		min = a < b ? a < c ? a : c : b < c ? b : c;
-
+		
 		System.out.println("max = " + max);
 		System.out.println("min = " + min);
 	}
@@ -1127,11 +1127,17 @@ public class FlowEx {
 		Scanner input = new Scanner(System.in);
 		int m = 0, n = 0;
 
+		System.out.println("輸入兩正整數：");
+		System.out.print("m > ");
+		m = input.hasNextInt() ? input.nextInt() : 0;
+		System.out.print("n > ");
+		n = input.hasNextInt() ? input.nextInt() : 0;
+
 		// (a) 輾轉相減法
-		System.out.println("輾轉相減法：" + GCD_dec(510, 100));
+		System.out.println("輾轉相減法：" + GCD_dec(m, n));
 
 		// (b) 輾轉相除法
-		System.out.println("輾轉相除法：" + GCD_div(510, 100));
+		System.out.println("輾轉相除法：" + GCD_div(m, n));
 	}
 
 	// 輾轉相減法
@@ -1151,19 +1157,148 @@ public class FlowEx {
 			return GCD_div(n, m);
 		return GCD_div(n, m % n);
 	}
-	
+
 	// (數字列舉練習) n10 最小公倍數
-	public static void n10(){
+	public static void n10() {
 		Scanner input = new Scanner(System.in);
 		int a = 0, b = 0;
-		
+
 		System.out.println("輸入兩正整數：");
 		System.out.print("a > ");
 		a = input.hasNextInt() ? input.nextInt() : 0;
 		System.out.print("b > ");
 		b = input.hasNextInt() ? input.nextInt() : 0;
-		
+
 		System.out.println("最小公倍數：" + a * b / GCD_div(a, b));
+	}
+
+	// (Function 函數練習)
+	// (庫存函數) s1
+	public static void funcS1() {
+		Random rand = new Random();
+		double result = 0;
+
+		System.out.print("(a)");
+		for (int i = 0; i < 10; i++) {
+			result = rand.nextInt(100) + 1;
+			System.out.printf(" %.0f", result);
+		}
+
+		System.out.print("\n(b)");
+		for (int i = 0; i < 10; i++) {
+			result = 1000 + rand.nextInt(112);
+			System.out.printf(" %.0f", result);
+		}
+
+		System.out.print("\n(c)");
+		for (int i = 0; i < 10; i++) {
+			result = rand.nextInt(15) - 3;
+			System.out.printf(" %.0f", result);
+		}
+
+		System.out.print("\n(d)");
+		for (int i = 0; i < 10; i++) {
+			result = (double) (rand.nextInt(13) + 24) / 10;
+			System.out.printf(" %.1f", result);
+		}
+	}
+
+	// (庫存函數) s4 12度的斜坡,行走300公尺,請問爬升多高(height)
+	public static void funcS4() {
+		double theta = 0, degree = 12, r = 300, y = 0;
+
+		theta = degree / 180 * Math.PI;
+		y = Math.sin(theta) * r;
+
+		System.out.printf("高 = %.2f公尺\n", y);
+	}
+
+	// (庫存函數) s5 每100公尺爬升5公分,試寫一個程式求斜坡斜度(degree).
+	public static void funcS5() {
+		double theta = 0, degree = 0, x = 100, y = 0.05;
+
+		theta = Math.atan(y / x);
+		degree = theta * 180 / Math.PI;
+
+		System.out.printf("斜坡斜度 = %.2f度\n", degree);
+	}
+
+	// (遞迴練習) r1 階乘計算
+	public static void r1() {
+		Scanner input = new Scanner(System.in);
+		double n = 0;
+
+		System.out.print("N = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+		System.out.printf("Factorial(%.0f) = %.0f\n", n, r1Factorial(n));
+	}
+
+	public static double r1Factorial(double n) {
+		if (n <= 1)
+			return 1;
+		return n * r1Factorial(n - 1);
+	}
+
+	// (遞迴練習) r4 兩數相加
+	public static void r4() {
+		Scanner input = new Scanner(System.in);
+		double m, n;
+
+		System.out.println("m + n = ?");
+		System.out.print("m = ");
+		m = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.print("n = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("%.2f + %.2f = %.2f\n", m, n, r4Sum(m, n));
+	}
+
+	public static double r4Sum(double m, double n) {
+		if (n == 0)
+			return m;
+		return r4Sum(m, 0) + r4Sum(n, 0);
+	}
+
+	// (遞迴練習) r5 兩數相加
+	public static void r5() {
+		Scanner input = new Scanner(System.in);
+		double m, n;
+
+		System.out.println("m x n = ?");
+		System.out.print("m = ");
+		m = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.print("n = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("%.2f x %.2f = %.2f\n", m, n, r5Product(m, n));
+	}
+
+	public static double r5Product(double m, double n) {
+		if (n == 1)
+			return m;
+		return r5Product(m, 1) * r5Product(n, 1);
+	}
+
+	// (遞迴練習) r6 計算power(base,exponent),exponent為大於等於1的整數.
+	public static void r6() {
+		Scanner input = new Scanner(System.in);
+		double base = 0, exponent = 0;
+
+		System.out.print("Base = ");
+		base = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.print("Exponent = ");
+		exponent = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("Base ^ Exponent = %.2f\n", r6Power(base, exponent));
+	}
+
+	public static double r6Power(double base, double exponent) {
+		if (exponent == 0)
+			return 1;
+		return base * r6Power(base, exponent - 1);
 	}
 
 	// (遞迴練習) r7
@@ -1181,16 +1316,42 @@ public class FlowEx {
 			}
 		} while (true);
 
-		r7Method(inputData, 0);
+		r7Reverse(inputData, 0);
 	}
 
-	public static boolean r7Method(int[] data, int index) {
+	public static boolean r7Reverse(int[] data, int index) {
 		if (data[index] == -1)
 			return true;
 
-		if (r7Method(data, index + 1))
+		if (r7Reverse(data, index + 1))
 			System.out.print(data[index] + " ");
 
 		return true;
+	}
+
+	// (遞迴練習) r8 兩數相加
+	public static void r8() {
+		Scanner input = new Scanner(System.in);
+		double m, n;
+
+		System.out.println("C_n_m = C_n-1_m + C_n-1_m-1，(Input: N = ? M = ?)");
+		System.out.print("n = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.print("m = ");
+		m = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("C_n_m = %.2f\n", r8C_n_m(n, m));
+	}
+
+	public static double r8C_n_m(double n, double m) {
+		System.out.println(n + "\t" + m);
+//		if(n == 1 || m == 1)
+//			return 1;
+		if(n == 1)
+			return 1 + m;
+		if(m == 1)
+			return 1 + n;
+		return r8C_n_m(n - 1, m) + r8C_n_m(n - 1, m - 1);
 	}
 }
