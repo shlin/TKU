@@ -573,7 +573,7 @@ public class FlowEx {
 
 		max = a > b ? a > c ? a : c : b > c ? b : c;
 		min = a < b ? a < c ? a : c : b < c ? b : c;
-		
+
 		System.out.println("max = " + max);
 		System.out.println("min = " + min);
 	}
@@ -1223,7 +1223,7 @@ public class FlowEx {
 		System.out.printf("斜坡斜度 = %.2f度\n", degree);
 	}
 
-	// (遞迴練習) r1 階乘計算
+	// (遞迴練習) r1 階層計算 n!
 	public static void r1() {
 		Scanner input = new Scanner(System.in);
 		double n = 0;
@@ -1255,12 +1255,10 @@ public class FlowEx {
 	}
 
 	public static double r4Sum(double m, double n) {
-		if (n == 0)
-			return m;
-		return r4Sum(m, 0) + r4Sum(n, 0);
+		return n == 0 ? m : r4Sum(m, 0) + r4Sum(n, 0);
 	}
 
-	// (遞迴練習) r5 兩數相加
+	// (遞迴練習) r5 兩數相乘
 	public static void r5() {
 		Scanner input = new Scanner(System.in);
 		double m, n;
@@ -1276,9 +1274,7 @@ public class FlowEx {
 	}
 
 	public static double r5Product(double m, double n) {
-		if (n == 1)
-			return m;
-		return r5Product(m, 1) * r5Product(n, 1);
+		return n == 1 ? m : r5Product(m, 1) * r5Product(n, 1);
 	}
 
 	// (遞迴練習) r6 計算power(base,exponent),exponent為大於等於1的整數.
@@ -1296,9 +1292,7 @@ public class FlowEx {
 	}
 
 	public static double r6Power(double base, double exponent) {
-		if (exponent == 0)
-			return 1;
-		return base * r6Power(base, exponent - 1);
+		return exponent == 0 ? 1 : base * r6Power(base, exponent - 1);
 	}
 
 	// (遞迴練習) r7
@@ -1329,12 +1323,15 @@ public class FlowEx {
 		return true;
 	}
 
-	// (遞迴練習) r8 兩數相加
+	/*
+	 * (遞迴練習)(組合練習) r8 Cn取m C_n_m = n! / m! * (n - m)! C_n_m = C_n-1_m +
+	 * C_n-1_m-1 ... C_n_0 = 1 , (n < m) => 0
+	 */
 	public static void r8() {
 		Scanner input = new Scanner(System.in);
 		double m, n;
 
-		System.out.println("C_n_m = C_n-1_m + C_n-1_m-1，(Input: N = ? M = ?)");
+		System.out.println("Cn取m，(Input: n = ? m = ?)");
 		System.out.print("n = ");
 		n = input.hasNextDouble() ? input.nextDouble() : 0;
 
@@ -1345,13 +1342,7 @@ public class FlowEx {
 	}
 
 	public static double r8C_n_m(double n, double m) {
-		System.out.println(n + "\t" + m);
-//		if(n == 1 || m == 1)
-//			return 1;
-		if(n == 1)
-			return 1 + m;
-		if(m == 1)
-			return 1 + n;
-		return r8C_n_m(n - 1, m) + r8C_n_m(n - 1, m - 1);
+		return m == 0 ? 1 : n < m ? 0 : r8C_n_m(n - 1, m)
+				+ r8C_n_m(n - 1, m - 1);
 	}
 }
