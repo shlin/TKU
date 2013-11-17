@@ -7,7 +7,7 @@ public class STMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		FlowEx.r8();
-		MidEx.m1Fibonacci();
+		MidEx.m2();
 	}
 
 }

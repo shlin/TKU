@@ -230,19 +230,132 @@ public class MidEx {
 		return numbers;
 	}
 
-	/* 費氏數列 Recursive
-	 * 此 Method 為求數列前 n 項的number
+	/*
+	 * 費氏數列 Recursive 此 Method 為求數列前 n 項的number
 	 */
 	public static void m1FibonacciRecursive(ArrayList<Double> numbers, int n) {
 		for (int i = 0; i <= n; i++)
 			numbers.add(m1FibonacciRecursive(i));
 	}
 
-	/* 費氏數列 Recursive
-	 * 此 Method 求數列第 n 項的number，建議測試 n 不要大於 45
+	/*
+	 * 費氏數列 Recursive 此 Method 求數列第 n 項的number，建議測試 n 不要大於 45
 	 */
 	public static double m1FibonacciRecursive(int n) {
 		return n == 0 ? 0 : n == 1 ? 1 : m1FibonacciRecursive(n - 1)
 				+ m1FibonacciRecursive(n - 2);
+	}
+
+	/*
+	 * 第二大題 亂數產生一數列 n 項 求平均,標準差,最大,最小,中位數,眾數等基本統計量
+	 */
+	public static void m2() {
+		Scanner input = new Scanner(System.in);
+		Random rand = new Random(100);
+		ArrayList<Integer> numbers = new ArrayList<Integer>();
+		int n = 0;
+
+		System.out.println("產生一個 n 項亂數數列，求其基本的統計量。");
+		System.out.print("n = ");
+		n = input.hasNextInt() ? input.nextInt() : 0;
+
+		// 產生n項的亂數數列，暫定Range為1 ~ 100
+		for (int i = 0; i < n; i++) {
+			numbers.add(rand.nextInt(100) + 1);
+			// System.out.printf("%d\t: %d\n", i, numbers.get(i));
+		}
+
+		System.out.println("總和：" + m2Sum(numbers));
+		System.out.println("平均：" + m2Average(numbers));
+		System.out.println("標準差：" + m2StdDeviation(numbers));
+		System.out.println("最大值：" + m2Max(numbers));
+		System.out.println("最小值：" + m2Min(numbers));
+		System.out.println("中位數：" + m2Median(numbers));
+		System.out.println("眾數：" + m2Mode(numbers));
+	}
+
+	// 總和
+	public static int m2Sum(ArrayList<Integer> numbers) {
+		int sum = 0;
+		Iterator<Integer> iter = numbers.iterator();
+		while (iter.hasNext())
+			sum += iter.next();
+		return sum;
+	}
+
+	// 平均
+	public static double m2Average(ArrayList<Integer> numbers) {
+		return (double) m2Sum(numbers) / numbers.size();
+	}
+
+	// 標準差
+	public static double m2StdDeviation(ArrayList<Integer> numbers) {
+		double average = m2Average(numbers);
+		double tmpSum = 0, result = 0;
+
+		Iterator<Integer> iter = numbers.iterator();
+		while (iter.hasNext())
+			tmpSum = Math.pow((double) iter.next() - average, 2);
+		result = Math.sqrt(tmpSum / numbers.size());
+
+		return result;
+	}
+
+	// 最大值
+	public static int m2Max(ArrayList<Integer> numbers) {
+		int max = Integer.MIN_VALUE;
+		int current = 0;
+		Iterator<Integer> iter = numbers.iterator();
+		while (iter.hasNext()) {
+			current = iter.next();
+			max = max < current ? current : max;
+		}
+		return max;
+	}
+
+	// 最小值
+	public static int m2Min(ArrayList<Integer> numbers) {
+		int min = Integer.MAX_VALUE;
+		int current = 0;
+		Iterator<Integer> iter = numbers.iterator();
+		while (iter.hasNext()) {
+			current = iter.next();
+			min = min > current ? current : min;
+		}
+		return min;
+	}
+
+	// 中位數
+	public static int m2Median(ArrayList<Integer> numbers) {
+		int[] tmpArray = new int[numbers.size()];
+
+		for (int i = 0; i < numbers.size(); i++)
+			tmpArray[i] = numbers.get(i);
+		Arrays.sort(tmpArray);
+
+		return numbers.size() % 2 == 0 ? (tmpArray[numbers.size() / 2 - 1] + tmpArray[(numbers
+				.size() / 2)]) / 2 : tmpArray[(numbers.size() + 1) / 2 - 1];
+	}
+
+	// 眾數
+	public static int m2Mode(ArrayList<Integer> numbers) {
+		int current = 0, result = 0;
+		Map<Integer, Integer> tmpMap = new TreeMap<Integer, Integer>();
+		Iterator<Integer> iter = numbers.iterator();
+
+		while (iter.hasNext()) {
+			current = iter.next();
+			tmpMap.put(current,
+					tmpMap.containsKey(current) ? tmpMap.get(current) + 1 : 1);
+		}
+
+		iter = tmpMap.keySet().iterator();
+		result = tmpMap.keySet().iterator().next();
+		while (iter.hasNext()) {
+			current = iter.next();
+			result = tmpMap.get(current) > tmpMap.get(result) ? current : result;
+		}
+
+		return result;
 	}
 }
