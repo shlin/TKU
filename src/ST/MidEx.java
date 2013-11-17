@@ -48,22 +48,201 @@ public class MidEx {
 		n = input.hasNextInt() ? input.nextInt() : 0;
 
 		System.out.printf("Loop: 1 + 2 + ... + %d = %d\n", n, m1SumLoop(n));
-		System.out.printf("Recursive: 1 + 2 + ... + %d = %d\n", n, m1SumRecursive(n));
+		System.out.printf("Recursive: 1 + 2 + ... + %d = %d\n", n,
+				m1SumRecursive(n));
 	}
 
 	// 數字和 Loop
 	public static int m1SumLoop(int n) {
 		int result = 0;
-		
+
 		for (int i = 1; i <= n; i++)
 			result += i;
-		
+
 		return result;
 	}
-	
+
 	// 數字和 Recursive
-	public static int m1SumRecursive(int n){
+	public static int m1SumRecursive(int n) {
 		return n == 1 ? 1 : n + m1SumRecursive(n - 1);
 	}
 
+	// 次方 n ^ k
+	public static void m1Power() {
+		Scanner input = new Scanner(System.in);
+		int n = 0, k = 0;
+
+		System.out.println("次方：n ^ k = ? (N >= 0 , K >= 0)");
+		System.out.print("n = ");
+		n = input.hasNextInt() ? input.nextInt() : 0;
+		System.out.print("k = ");
+		k = input.hasNextInt() ? input.nextInt() : 0;
+
+		System.out.printf("Loop: %d ^ %d = %d\n", n, k, m1PowerLoop(n, k));
+		System.out.printf("Recursive: %d ^ %d = %d\n", n, k,
+				m1PowerRecursive(n, k));
+	}
+
+	// 次方 Loop
+	public static int m1PowerLoop(int base, int exp) {
+		int result = base;
+
+		if (exp == 0)
+			return 1;
+
+		for (int i = 1; i < exp; i++)
+			result *= base;
+
+		return result;
+	}
+
+	// 次方 Recursive
+	public static int m1PowerRecursive(int base, int exp) {
+		return exp == 0 ? 1 : base * m1PowerRecursive(base, exp - 1);
+	}
+
+	// 階層 n!
+	public static void m1Factorial() {
+		Scanner input = new Scanner(System.in);
+		double n = 0;
+
+		System.out.println("階層：n! = ? (N >= 0)");
+		System.out.print("n = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("Loop: %.2f! = %.2f\n", n, m1FactorialLoop(n));
+		System.out.printf("Recursive: %.2f! = %.2f\n", n,
+				m1FactorialRecursive(n));
+	}
+
+	// 階層 Loop
+	public static double m1FactorialLoop(double n) {
+		double result = 1;
+
+		for (int i = 1; i <= n; i++)
+			result *= i;
+
+		return result;
+	}
+
+	// 階層 Recursive
+	public static double m1FactorialRecursive(double n) {
+		return n <= 1 ? 1 : n * m1FactorialRecursive(n - 1);
+	}
+
+	// 排列 P_n_m = n! / (n - m)!
+	public static void m1Perm() {
+		Scanner input = new Scanner(System.in);
+		double n = 0, m = 0;
+
+		System.out.println("排列：Pn取m = ? (n, m > 0)");
+		System.out.print("n = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+		System.out.print("m = ");
+		m = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("Loop: P_n_m(%.0f, %.0f) = %.0f\n", n, m,
+				m1PermLoop(n, m));
+		System.out.printf("Recursive: P_n_m(%.0f, %.0f) = %.0f\n", n, m,
+				m1PermRecursive(n, m));
+	}
+
+	// 排列 Loop
+	public static double m1PermLoop(double n, double m) {
+		double result = 1;
+
+		for (double i = n - m + 1; i <= n; i++)
+			result *= i;
+
+		return Math.abs(result);
+	}
+
+	// 排列 Recursive N取M
+	public static double m1PermRecursive(double n, double m) {
+		return m1PermRecursive(n) / m1PermRecursive(n - m);
+	}
+
+	// 排列 Recursive N取N
+	public static double m1PermRecursive(double n) {
+		return n <= 1 ? 1 : n * m1PermRecursive(n - 1);
+	}
+
+	// 組合
+	public static void m1Comb() {
+		Scanner input = new Scanner(System.in);
+		double n = 0, m = 0;
+
+		System.out.println("排列：Cn取m = ? (n, m > 0)");
+		System.out.print("n = ");
+		n = input.hasNextDouble() ? input.nextDouble() : 0;
+		System.out.print("m = ");
+		m = input.hasNextDouble() ? input.nextDouble() : 0;
+
+		System.out.printf("Loop: C_n_m(%.0f, %.0f) = %.0f\n", n, m,
+				m1CombLoop(n, m));
+		System.out.printf("Recursive: C_n_m(%.0f, %.0f) = %.0f\n", n, m,
+				m1CombRecursive(n, m));
+	}
+
+	// 組合 Loop
+	public static double m1CombLoop(double n, double m) {
+		double result = 1;
+
+		for (double i = n - m + 1; i <= n; i++)
+			result *= i;
+		for (double i = 1; i <= m; i++)
+			result /= i;
+
+		return result;
+	}
+
+	// 組合 Recursive
+	public static double m1CombRecursive(double n, double m) {
+		return m == 0 ? 1 : n < m ? 0 : m1CombRecursive(n - 1, m)
+				+ m1CombRecursive(n - 1, m - 1);
+	}
+
+	/*
+	 * 費氏數列 Fibonacci: 0, 1, 1, 2, 3, 5, 8, 13, 21 ...
+	 */
+	public static void m1Fibonacci() {
+		Scanner input = new Scanner(System.in);
+		int n = 0;
+		ArrayList<Double> forLoop = new ArrayList<Double>();
+		ArrayList<Double> forRecursive = new ArrayList<Double>();
+
+		System.out.println("Fibonacci Number 求第 n 項");
+		System.out.print("n = ");
+		n = input.hasNextInt() ? input.nextInt() : 0;
+
+		forLoop = m1FibonacciLoop(n);
+		System.out.println("Loop: " + forLoop.get(n));
+		System.out.println("Recursive: " + m1FibonacciRecursive(n));
+	}
+
+	// 費氏數列 Loop
+	public static ArrayList<Double> m1FibonacciLoop(int n) {
+		ArrayList<Double> numbers = new ArrayList<Double>();
+		numbers.add(0, 0.0);
+		numbers.add(1, 1.0);
+		for (int i = 2; i <= n; i++)
+			numbers.add(numbers.get(i - 2) + numbers.get(i - 1));
+		return numbers;
+	}
+
+	/* 費氏數列 Recursive
+	 * 此 Method 為求數列前 n 項的number
+	 */
+	public static void m1FibonacciRecursive(ArrayList<Double> numbers, int n) {
+		for (int i = 0; i <= n; i++)
+			numbers.add(m1FibonacciRecursive(i));
+	}
+
+	/* 費氏數列 Recursive
+	 * 此 Method 求數列第 n 項的number，建議測試 n 不要大於 45
+	 */
+	public static double m1FibonacciRecursive(int n) {
+		return n == 0 ? 0 : n == 1 ? 1 : m1FibonacciRecursive(n - 1)
+				+ m1FibonacciRecursive(n - 2);
+	}
 }
