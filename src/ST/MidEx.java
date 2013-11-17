@@ -31,6 +31,7 @@
 package ST;
 
 import java.util.*;
+import java.math.*;
 
 /**
  * @author PStar 期中考公告後練習題
@@ -337,7 +338,7 @@ public class MidEx {
 				.size() / 2)]) / 2 : tmpArray[(numbers.size() + 1) / 2 - 1];
 	}
 
-	// 眾數
+	// 眾數 如果有多個眾數存在時，目前暫時只有一個
 	public static int m2Mode(ArrayList<Integer> numbers) {
 		int current = 0, result = 0;
 		Map<Integer, Integer> tmpMap = new TreeMap<Integer, Integer>();
@@ -357,5 +358,24 @@ public class MidEx {
 		}
 
 		return result;
+	}
+	
+	// 大數運算使用 BigInteger / BigDecimal 進行四則運算
+	public static void m3(){
+		Scanner input = new Scanner(System.in);
+		BigInteger a = BigInteger.ZERO;
+		BigInteger b = BigInteger.ZERO;
+		
+		System.out.println("大數四則運算 a + b, a - b, a * b, a / b");
+		System.out.print("a = ");
+		a = new BigInteger(input.hasNext() ? input.nextLine() : "0");
+		System.out.print("b = ");
+		b = new BigInteger(input.hasNext() ? input.nextLine() : "0");
+		
+		System.out.printf("%s + %s = %s\n", a, b, a.add(b));
+		System.out.printf("%s - %s = %s\n", a, b, a.add(b.negate()));
+		System.out.printf("%s * %s = %s\n", a, b, a.multiply(b));
+		System.out.printf("%s / %s = %s\n", a, b, a.divide(b));
+		System.out.printf("%s mod %s = %s\n", a, b, a.mod(b));
 	}
 }
