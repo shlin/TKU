@@ -33,7 +33,10 @@ package ST;
 import java.util.*;
 import java.io.*;
 import java.math.*;
+
 import com.chenlb.mmseg4j.*;
+import com.chenlb.mmseg4j.Dictionary;
+import com.chenlb.mmseg4j.example.*;
 
 /**
  * @author PStar 期中考公告後練習題
@@ -410,7 +413,7 @@ public class MidEx {
 	 * http://mail.im.tku.edu.tw/~seke/mmseg/
 	 * 參考其中com.chenlb.mmseg4j.example.Simple類別用例.
 	 */
-	public static void m5() throws FileNotFoundException {
+	public static void m5() throws IOException {
 		FileInputStream fchtInput = new FileInputStream("exInputFile/cht.txt");
 		FileInputStream fenInput = new FileInputStream("exInputFile/en.txt");
 		Scanner input = null;
@@ -446,13 +449,13 @@ public class MidEx {
 		String pureWords = str.replaceAll("[()\\.,\\\"]", "");
 
 		// 標點符號
-		String symbols = str.replaceAll("[\\w\\s-+*/]", "");
+		String symbols = str.replaceAll("[^\\p{Punct}]", "");
 
 		// 全形字
-		String fullStr = str.replaceAll("[\\u0020-\\u007F]", "");
+		String fullStr = str.replaceAll("[\\u0020-\\u007E]", "");
 
 		// 半形字
-		String helfStr = str.replaceAll("[^\\u0000-\\u007F]", "");
+		String helfStr = str.replaceAll("[^\\u0000-\\u007E]", "");
 
 		int totalWords = 0, fullWords = 0, helfWords = 0, rowCount = 0, paraCount = 0;
 
@@ -468,8 +471,8 @@ public class MidEx {
 		helfWords = m5EnWordsTotal(new StringTokenizer(helfStr));
 		rowCount = m5EnWordsTotal(new StringTokenizer(str, "\n"));
 		paraCount = m5EnWordsTotal(new StringTokenizer(str, "\r"));
-		Set<String> maxSet = m5EnWordsMaxTimes(wordMap);
-		Set<String> minSet = m5EnWordsMinTimes(wordMap);
+		Set<String> maxSet = m5WordsMaxTimes(wordMap);
+		Set<String> minSet = m5WordsMinTimes(wordMap);
 
 		System.out.println("全形：" + fullWords);
 		System.out.println("半形：" + helfWords);
@@ -502,7 +505,6 @@ public class MidEx {
 			while (iterStr.hasNext())
 				System.out.println(iterStr.next());
 		}
-
 	}
 
 	// 英文解析：總字數
@@ -523,7 +525,7 @@ public class MidEx {
 	}
 
 	// 最常見的單字
-	public static Set<String> m5EnWordsMaxTimes(TreeMap<String, Integer> wordMap) {
+	public static Set<String> m5WordsMaxTimes(TreeMap<String, Integer> wordMap) {
 		int maxTimes = Integer.MIN_VALUE;
 		Set<String> resultSet = new TreeSet<String>();
 
@@ -549,7 +551,7 @@ public class MidEx {
 	}
 
 	// 最罕見的單字
-	public static Set<String> m5EnWordsMinTimes(TreeMap<String, Integer> wordMap) {
+	public static Set<String> m5WordsMinTimes(TreeMap<String, Integer> wordMap) {
 		int minTimes = Integer.MAX_VALUE;
 		Set<String> resultSet = new TreeSet<String>();
 
@@ -575,8 +577,85 @@ public class MidEx {
 	}
 
 	// 中文解析
-	public static void m5ChtWords(String str){
-		System.out.println(str);
-		
+	// Dictionary -> com.chenlb.mmseg4j.Dictionary
+	// 總字形數,各字出現次數,總字數,最常見/罕見字,標點符號數,段落數,行數等
+	public static void m5ChtWords(String str) throws IOException {
+		TreeMap<String, Integer> wordMap = new TreeMap<String, Integer>();
+		Simple simple = new Simple();
+		String fullPunctSet = "[[。、，：；『』「」（）《》〈〉—？！……﹏＿・～][\\s]]+";
+		String strSource = str.replaceAll("[\\s]+", ".");
+		strSource = strSource.replaceAll(fullPunctSet, "").trim();
+		strSource = strSource.replaceAll("\\p{Punct}", " ");
+		String strResult = simple.segWords(strSource, " ");		
+		String[] strArray = strResult.replaceAll("\\s{2,}", " ").split("\\s");
+
+		int fullWords = 0, helfWords = 0, totalWords = 0, totalSen = 0;
+		int rowCount = 0, paraCount = 0;
+
+		String current = new String();
+		Iterator<String> iter = null;
+
+		// 全形字
+		String fullStr = str.replaceAll("[[\\u0020-\\u007E][\\n]]", "");
+
+		// 半形字
+		String helfStr = str.replaceAll("[[^\\u0000-\\u007E][\\n]]", " ")
+				.replaceAll("\\s+", " ").trim();
+
+		// 初始化
+		m5ChtWordsTotal(wordMap, strArray);
+		fullWords = fullStr.length();
+		helfWords = helfStr.split("\\s").length;
+		totalWords = fullWords + helfWords;
+		totalSen = wordMap.size();
+		rowCount = str.split("[\\n]").length;
+		paraCount = str.split("[\\r]").length;
+		Set<String> maxSet = m5WordsMaxTimes(wordMap);
+		Set<String> minSet = m5WordsMinTimes(wordMap);
+
+		// 顯示統計量
+		System.out.println("全形字：" + fullWords);
+		System.out.println("半形字：" + helfWords);
+		System.out.println("總字數：" + totalWords);
+		System.out.println("總字詞數：" + totalSen);
+		System.out.println("行數：" + rowCount);
+		System.out.println("段落數：" + paraCount);
+
+		// 各單詞出現次數
+		iter = wordMap.keySet().iterator();
+		System.out.println("=== 各單詞出現次數 ===");
+		while (iter.hasNext()) {
+			current = iter.next();
+			System.out.printf("%s: %d\n", current, wordMap.get(current));
+		}
+
+		System.out.println("=== 最常見的單詞 ===");
+		if (maxSet.isEmpty())
+			System.out.println("沒有最常見的單字");
+		else {
+			iter = maxSet.iterator();
+			while (iter.hasNext())
+				System.out.println(iter.next());
+		}
+
+		System.out.println("=== 最罕見的單詞 ===");
+		if (minSet.isEmpty())
+			System.out.println("沒有最罕見的單詞");
+		else {
+			iter = minSet.iterator();
+			while (iter.hasNext())
+				System.out.println(iter.next());
+		}
+
+	}
+
+	// 各單詞量統計
+	public static void m5ChtWordsTotal(TreeMap<String, Integer> wordMap,
+			String[] strArray) {
+		for (int i = 0; i < strArray.length; i++)
+			wordMap.put(
+					strArray[i],
+					wordMap.containsKey(strArray[i]) ? wordMap.get(strArray[i]) + 1
+							: 1);
 	}
 }
