@@ -31,7 +31,9 @@
 package ST;
 
 import java.util.*;
+import java.io.*;
 import java.math.*;
+import com.chenlb.mmseg4j.*;
 
 /**
  * @author PStar 期中考公告後練習題
@@ -354,28 +356,227 @@ public class MidEx {
 		result = tmpMap.keySet().iterator().next();
 		while (iter.hasNext()) {
 			current = iter.next();
-			result = tmpMap.get(current) > tmpMap.get(result) ? current : result;
+			result = tmpMap.get(current) > tmpMap.get(result) ? current
+					: result;
 		}
 
 		return result;
 	}
-	
+
+	/*
+	 * 3.當有效位數超過18位,傳統long/double型別就派不上用場,
+	 * 請熟悉題庫HugeInteger或java.math.BigInteger/BigDecimal類別如何作四則運算.
+	 */
 	// 大數運算使用 BigInteger / BigDecimal 進行四則運算
-	public static void m3(){
+	public static void m3() {
 		Scanner input = new Scanner(System.in);
 		BigInteger a = BigInteger.ZERO;
 		BigInteger b = BigInteger.ZERO;
-		
+
 		System.out.println("大數四則運算 a + b, a - b, a * b, a / b");
 		System.out.print("a = ");
-		a = new BigInteger(input.hasNext() ? input.nextLine() : "0");
+		a = input.hasNextBigInteger() ? input.nextBigInteger()
+				: BigInteger.ZERO;
 		System.out.print("b = ");
-		b = new BigInteger(input.hasNext() ? input.nextLine() : "0");
-		
+		b = input.hasNextBigInteger() ? input.nextBigInteger()
+				: BigInteger.ZERO;
+
 		System.out.printf("%s + %s = %s\n", a, b, a.add(b));
 		System.out.printf("%s - %s = %s\n", a, b, a.add(b.negate()));
 		System.out.printf("%s * %s = %s\n", a, b, a.multiply(b));
 		System.out.printf("%s / %s = %s\n", a, b, a.divide(b));
 		System.out.printf("%s mod %s = %s\n", a, b, a.mod(b));
+	}
+
+	/*
+	 * 4.二元樹每個節點最多可有左,右兩節點,其前,中,後序走訪可輔助運算式的複製,列印,及求值等運算;
+	 * 加上左小右大元素擺放限制的二元搜索樹,更常用於樹集合,樹映射等有序容器製作,提供快速查詢,增刪等功能. 請熟悉課本如下二元搜索樹範例
+	 * ftp://mail.im.tku.edu.tw/seke/jhtp9/examples/ch22/fig22_17_18/
+	 * 理解不同的加入(insertNode)順序,如何影響樹長相及其前,中,後序走訪結果.
+	 * 又可否自己手動串接樹節點(TreeNode),建立任意一顆二元樹.
+	 * 例如:某二元樹的前序走訪為ABDCEGFH，中序走訪為BDAGECFH，則其後訪走訪結果為何.
+	 */
+	// Binary Tree
+	public static void m4() {
+		Scanner input = new Scanner(System.in);
+
+	}
+
+	/*
+	 * 5.一篇文章通常有如下基本統計量,例如:總字形數,各字出現次數,總字數,最常見/罕見字,標點符號數,段落數,行數等
+	 * 請熟悉Java如何讀取文字檔,斷字,及文字統計方法.
+	 * 
+	 * 註:英文斷字可用java.util.StringTokenizer 中文斷字可用 mmseg4j.jar 套件, 如下,
+	 * http://mail.im.tku.edu.tw/~seke/mmseg/
+	 * 參考其中com.chenlb.mmseg4j.example.Simple類別用例.
+	 */
+	public static void m5() throws FileNotFoundException {
+		FileInputStream fchtInput = new FileInputStream("exInputFile/cht.txt");
+		FileInputStream fenInput = new FileInputStream("exInputFile/en.txt");
+		Scanner input = null;
+		String textStr = null;
+		String current = null;
+
+		// 英文解析
+		textStr = new String();
+		input = new Scanner(fenInput, "UTF-8");
+		while (input.hasNext()) {
+			current = input.nextLine();
+			textStr += current.isEmpty() ? "\r\n" : current + "\n";
+		}
+//		m5EnWords(textStr);
+
+		// 中文解析
+		textStr = new String();
+		input = new Scanner(fchtInput, "UTF-8");
+		while (input.hasNext()) {
+			current = input.nextLine();
+			textStr += current.isEmpty() ? "\r\n" : current + "\n";
+		}
+		m5ChtWords(textStr);
+	}
+
+	// 英文解析
+	public static void m5EnWords(String str) {
+		TreeMap<String, Integer> wordMap = new TreeMap<String, Integer>();
+		TreeMap<String, Integer> helfWordMap = new TreeMap<String, Integer>();
+		TreeMap<String, Integer> fullWordMap = new TreeMap<String, Integer>();
+
+		// 純文字
+		String pureWords = str.replaceAll("[()\\.,\\\"]", "");
+
+		// 標點符號
+		String symbols = str.replaceAll("[\\w\\s-+*/]", "");
+
+		// 全形字
+		String fullStr = str.replaceAll("[\\u0020-\\u007F]", "");
+
+		// 半形字
+		String helfStr = str.replaceAll("[^\\u0000-\\u007F]", "");
+
+		int totalWords = 0, fullWords = 0, helfWords = 0, rowCount = 0, paraCount = 0;
+
+		Iterator<String> iterStr = null;
+		String current = new String();
+
+		// 初始化 wordMap
+		m5EnWordsTimes(wordMap, new StringTokenizer(pureWords));
+		m5EnWordsTimes(fullWordMap, new StringTokenizer(fullStr));
+		m5EnWordsTimes(helfWordMap, new StringTokenizer(helfStr));
+		totalWords = m5EnWordsTotal(new StringTokenizer(pureWords));
+		fullWords = m5EnWordsTotal(new StringTokenizer(fullStr));
+		helfWords = m5EnWordsTotal(new StringTokenizer(helfStr));
+		rowCount = m5EnWordsTotal(new StringTokenizer(str, "\n"));
+		paraCount = m5EnWordsTotal(new StringTokenizer(str, "\r"));
+		Set<String> maxSet = m5EnWordsMaxTimes(wordMap);
+		Set<String> minSet = m5EnWordsMinTimes(wordMap);
+
+		System.out.println("全形：" + fullWords);
+		System.out.println("半形：" + helfWords);
+		System.out.println("總字數：" + totalWords);
+		System.out.println("標點符號數：" + symbols.length());
+		System.out.println("行數：" + rowCount);
+		System.out.println("段落數：" + paraCount);
+
+		System.out.println("=== 每個單字出現次數 ===");
+		iterStr = wordMap.keySet().iterator();
+		while (iterStr.hasNext()) {
+			current = iterStr.next();
+			System.out.printf("%s: %d\n", current, wordMap.get(current));
+		}
+
+		System.out.println("=== 最常見的單字 ===");
+		if (maxSet.isEmpty())
+			System.out.println("沒有最常見的單字");
+		else {
+			iterStr = maxSet.iterator();
+			while (iterStr.hasNext())
+				System.out.println(iterStr.next());
+		}
+
+		System.out.println("=== 最罕見的單字 ===");
+		if (minSet.isEmpty())
+			System.out.println("沒有最罕見的單字");
+		else {
+			iterStr = minSet.iterator();
+			while (iterStr.hasNext())
+				System.out.println(iterStr.next());
+		}
+
+	}
+
+	// 英文解析：總字數
+	public static int m5EnWordsTotal(StringTokenizer token) {
+		return token.countTokens();
+	}
+
+	// 英文解析：各字出現次數
+	public static void m5EnWordsTimes(TreeMap<String, Integer> wordMap,
+			StringTokenizer token) {
+		String current = new String();
+
+		while (token.hasMoreTokens()) {
+			current = token.nextToken();
+			wordMap.put(current,
+					wordMap.containsKey(current) ? wordMap.get(current) + 1 : 1);
+		}
+	}
+
+	// 最常見的單字
+	public static Set<String> m5EnWordsMaxTimes(TreeMap<String, Integer> wordMap) {
+		int maxTimes = Integer.MIN_VALUE;
+		Set<String> resultSet = new TreeSet<String>();
+
+		Iterator<String> iterStr = wordMap.keySet().iterator();
+		String current = new String();
+
+		while (iterStr.hasNext()) {
+			current = iterStr.next();
+			maxTimes = wordMap.get(current) > maxTimes ? wordMap.get(current)
+					: maxTimes;
+		}
+
+		if (maxTimes > 1) {
+			iterStr = wordMap.keySet().iterator();
+			while (iterStr.hasNext()) {
+				current = iterStr.next();
+				if (wordMap.get(current) == maxTimes)
+					resultSet.add(current);
+			}
+		}
+
+		return resultSet;
+	}
+
+	// 最罕見的單字
+	public static Set<String> m5EnWordsMinTimes(TreeMap<String, Integer> wordMap) {
+		int minTimes = Integer.MAX_VALUE;
+		Set<String> resultSet = new TreeSet<String>();
+
+		Iterator<String> iterStr = wordMap.keySet().iterator();
+		String current = new String();
+
+		while (iterStr.hasNext()) {
+			current = iterStr.next();
+			minTimes = wordMap.get(current) < minTimes ? wordMap.get(current)
+					: minTimes;
+		}
+
+		if (minTimes <= 1) {
+			iterStr = wordMap.keySet().iterator();
+			while (iterStr.hasNext()) {
+				current = iterStr.next();
+				if (wordMap.get(current) == minTimes)
+					resultSet.add(current);
+			}
+		}
+
+		return resultSet;
+	}
+
+	// 中文解析
+	public static void m5ChtWords(String str){
+		System.out.println(str);
+		
 	}
 }

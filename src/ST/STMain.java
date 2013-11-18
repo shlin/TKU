@@ -1,13 +1,14 @@
 package ST;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class STMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 //		FlowEx.r8();
-		MidEx.m3();
+		MidEx.m5();
 	}
 
 }
