@@ -427,7 +427,7 @@ public class MidEx {
 			current = input.nextLine();
 			textStr += current.isEmpty() ? "\r\n" : current + "\n";
 		}
-//		m5EnWords(textStr);
+		// m5EnWords(textStr);
 
 		// 中文解析
 		textStr = new String();
@@ -582,15 +582,15 @@ public class MidEx {
 	public static void m5ChtWords(String str) throws IOException {
 		TreeMap<String, Integer> wordMap = new TreeMap<String, Integer>();
 		Simple simple = new Simple();
-		String fullPunctSet = "[[。、，：；『』「」（）《》〈〉—？！……﹏＿・～][\\s]]+";
+		String fullPunctSet = "[[。、，：；『』「」（）《》〈〉—？！……﹏＿・～][\\s]]";
 		String strSource = str.replaceAll("[\\s]+", ".");
 		strSource = strSource.replaceAll(fullPunctSet, "").trim();
 		strSource = strSource.replaceAll("\\p{Punct}", " ");
-		String strResult = simple.segWords(strSource, " ");		
+		String strResult = simple.segWords(strSource, " ");
 		String[] strArray = strResult.replaceAll("\\s{2,}", " ").split("\\s");
 
 		int fullWords = 0, helfWords = 0, totalWords = 0, totalSen = 0;
-		int rowCount = 0, paraCount = 0;
+		int rowCount = 0, paraCount = 0, totalPuncts = 0;
 
 		String current = new String();
 		Iterator<String> iter = null;
@@ -602,6 +602,13 @@ public class MidEx {
 		String helfStr = str.replaceAll("[[^\\u0000-\\u007E][\\n]]", " ")
 				.replaceAll("\\s+", " ").trim();
 
+		// 全形標點符號
+		String onlyFullPunctStr = fullStr.replaceAll(
+				"[^。、，：；『』「」（）《》〈〉—？！……﹏＿・～]", "").trim();
+
+		// 半形標點符號
+		String onlyHelfPunctStr = str.replaceAll("[^\\p{Punct}]", "");
+
 		// 初始化
 		m5ChtWordsTotal(wordMap, strArray);
 		fullWords = fullStr.length();
@@ -610,6 +617,7 @@ public class MidEx {
 		totalSen = wordMap.size();
 		rowCount = str.split("[\\n]").length;
 		paraCount = str.split("[\\r]").length;
+		totalPuncts = onlyFullPunctStr.length() + onlyHelfPunctStr.length();
 		Set<String> maxSet = m5WordsMaxTimes(wordMap);
 		Set<String> minSet = m5WordsMinTimes(wordMap);
 
@@ -620,6 +628,7 @@ public class MidEx {
 		System.out.println("總字詞數：" + totalSen);
 		System.out.println("行數：" + rowCount);
 		System.out.println("段落數：" + paraCount);
+		System.out.println("標點符號數：" + totalPuncts);
 
 		// 各單詞出現次數
 		iter = wordMap.keySet().iterator();
