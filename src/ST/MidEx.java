@@ -34,8 +34,6 @@ import java.util.*;
 import java.io.*;
 import java.math.*;
 
-import com.chenlb.mmseg4j.*;
-import com.chenlb.mmseg4j.Dictionary;
 import com.chenlb.mmseg4j.example.*;
 
 /**
@@ -248,7 +246,7 @@ public class MidEx {
 	 * 費氏數列 Recursive 此 Method 求數列第 n 項的number，建議測試 n 不要大於 45
 	 */
 	public static double m1FibonacciRecursive(int n) {
-		return n == 0 ? 0 : n == 1 ? 1 : m1FibonacciRecursive(n - 1)
+		return n == 0 ? 0 : n == 1 || n == 2 ? 1 : m1FibonacciRecursive(n - 1)
 				+ m1FibonacciRecursive(n - 2);
 	}
 
@@ -281,8 +279,8 @@ public class MidEx {
 	}
 
 	// 總和
-	public static int m2Sum(ArrayList<Integer> numbers) {
-		int sum = 0;
+	public static double m2Sum(ArrayList<Integer> numbers) {
+		double sum = 0;
 		Iterator<Integer> iter = numbers.iterator();
 		while (iter.hasNext())
 			sum += iter.next();
@@ -291,7 +289,7 @@ public class MidEx {
 
 	// 平均
 	public static double m2Average(ArrayList<Integer> numbers) {
-		return (double) m2Sum(numbers) / numbers.size();
+		return m2Sum(numbers) / numbers.size();
 	}
 
 	// 標準差
@@ -301,7 +299,7 @@ public class MidEx {
 
 		Iterator<Integer> iter = numbers.iterator();
 		while (iter.hasNext())
-			tmpSum = Math.pow((double) iter.next() - average, 2);
+			tmpSum += Math.pow((double) iter.next() - average, 2);
 		result = Math.sqrt(tmpSum / numbers.size());
 
 		return result;
@@ -583,7 +581,7 @@ public class MidEx {
 		TreeMap<String, Integer> wordMap = new TreeMap<String, Integer>();
 		Simple simple = new Simple();
 		String fullPunctSet = "[[。、，：；『』「」（）《》〈〉—？！……﹏＿・～][\\s]]";
-		String strSource = str.replaceAll("[\\s]+", ".");
+		String strSource = str.replaceAll("[\\s]+", "");
 		strSource = strSource.replaceAll(fullPunctSet, "").trim();
 		strSource = strSource.replaceAll("\\p{Punct}", " ");
 		String strResult = simple.segWords(strSource, " ");
@@ -602,12 +600,8 @@ public class MidEx {
 		String helfStr = str.replaceAll("[[^\\u0000-\\u007E][\\n]]", " ")
 				.replaceAll("\\s+", " ").trim();
 
-		// 全形標點符號
-		String onlyFullPunctStr = fullStr.replaceAll(
-				"[^。、，：；『』「」（）《》〈〉—？！……﹏＿・～]", "").trim();
-
-		// 半形標點符號
-		String onlyHelfPunctStr = str.replaceAll("[^\\p{Punct}]", "");
+		// 標點符號
+		String onlyPunctStr = fullStr.replaceAll("[^\\p{P}]", "");
 
 		// 初始化
 		m5ChtWordsTotal(wordMap, strArray);
@@ -617,7 +611,7 @@ public class MidEx {
 		totalSen = wordMap.size();
 		rowCount = str.split("[\\n]").length;
 		paraCount = str.split("[\\r]").length;
-		totalPuncts = onlyFullPunctStr.length() + onlyHelfPunctStr.length();
+		totalPuncts = onlyPunctStr.length();
 		Set<String> maxSet = m5WordsMaxTimes(wordMap);
 		Set<String> minSet = m5WordsMinTimes(wordMap);
 
