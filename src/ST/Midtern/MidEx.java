@@ -28,7 +28,7 @@
  * 參考其中com.chenlb.mmseg4j.example.Simple類別用例.
  *
  */
-package ST;
+package ST.Midtern;
 
 import java.util.*;
 import java.io.*;

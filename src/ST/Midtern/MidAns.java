@@ -1,4 +1,4 @@
-package ST;
+package ST.Midtern;
 
 import java.io.*;
 import java.util.*;
