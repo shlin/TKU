@@ -1,15 +1,15 @@
 package ST;
 
+import java.io.IOException;
+import ST.Midtern.*;
+
 public class STMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		List newList = new List();
-		
-		newList.addLast("aaaa");
-		newList.addLast(true);
-		newList.addLast("TEST");
-		newList.showList();
+//		FlowEx.r8();
+//		MidEx.m5();
+		MidAns.M1();
 	}
 
 }
