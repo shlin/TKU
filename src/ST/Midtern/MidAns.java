@@ -9,9 +9,6 @@ public class MidAns {
 		Random r = new Random(1);
 		ArrayList<Integer> numbers = new ArrayList<Integer>();
 
-		int sum = 0;
-		double average = 0;
-
 		for (int i = 0; i < 10001; i++)
 			numbers.add(r.nextInt());
 
@@ -136,7 +133,6 @@ public class MidAns {
 		long start_time = System.currentTimeMillis();
 
 		long end_time = System.currentTimeMillis();
-		long diff_time = end_time - start_time;
 
 		long[] loop_time = new long[5];
 		long[] recursive_time = new long[5];

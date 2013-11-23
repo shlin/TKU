@@ -1,10 +1,7 @@
 package ST;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
-
-import ST.Midtern.MidAns;
+import ST.Midtern.*;
 
 public class STMain {
 

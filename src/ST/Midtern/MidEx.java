@@ -213,8 +213,6 @@ public class MidEx {
 		Scanner input = new Scanner(System.in);
 		int n = 0;
 		ArrayList<Double> forLoop = new ArrayList<Double>();
-		ArrayList<Double> forRecursive = new ArrayList<Double>();
-
 		System.out.println("Fibonacci Number 求第 n 項");
 		System.out.print("n = ");
 		n = input.hasNextInt() ? input.nextInt() : 0;
@@ -399,7 +397,6 @@ public class MidEx {
 	 */
 	// Binary Tree
 	public static void m4() {
-		Scanner input = new Scanner(System.in);
 
 	}
 
