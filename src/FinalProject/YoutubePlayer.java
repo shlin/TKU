@@ -1,20 +1,10 @@
-/**
- * 
- */
 package FinalProject;
 
-/**
- * @author PStar
- *
- */
-public class FbRobot {
+public class YoutubePlayer {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
