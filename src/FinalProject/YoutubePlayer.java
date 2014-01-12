@@ -1,30 +1,67 @@
 package FinalProject;
 
 import com.teamdev.jxbrowser.chromium.*;
-
 import javax.swing.*;
-
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
+import java.awt.event.*;
+import java.io.IOException;
 
-public class YoutubePlayer {
-	static Browser browser;
+public class YoutubePlayer extends JFrame {
 
-	public static void main(String[] args) throws InterruptedException {
-		// TODO Auto-generated method stub
+	private Browser browser;
+	private JComponent browserView;
+	private JList list;
+	private PlayListPool listPool;
+
+	public YoutubePlayer() throws InterruptedException, IOException {
+		// 初始化選單
+		listPool = new PlayListPool();
+
+		// 初始化選單View
+		list = new JList(listPool.initListView());
+		list.setVisible(true);
+
+		// 初始化瀏覽器
 		browser = BrowserFactory.create();
+		browserView = browser.getView().getComponent();
+		browserView.setVisible(true);
 
-		JFrame frame = new JFrame("Youtube 點播機");
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.add(browser.getView().getComponent(), BorderLayout.CENTER);
-		frame.setSize(800, 600);
-		frame.setVisible(true);
+		// 初始化GUI視窗
+		this.setTitle("Youtube 點播機");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(list, BorderLayout.LINE_START);
+		this.getContentPane().add(browserView, BorderLayout.CENTER);
+		this.setSize(1024, 768);
+		this.setVisible(true);
 
-		browser.loadURL("http://www.youtube.com/embed/fNJSUT97NZk?list=PLB27E983B2D5BC4C4");
-		while (browser.isLoading()) {
-		    TimeUnit.MILLISECONDS.wait(50);
-		}
-		// web page is loaded completely
+		// 讀取清單上第一段影片
+		browser.loadURL(listPool.getURL(1));
+
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					int itemIndex = list.locationToIndex(e.getPoint());
+					if (!(itemIndex == 0 || itemIndex == listPool.getEndIndex())) {
+						// 取得影片嵌入網址
+						String tmpURL = listPool.getURL(itemIndex);
+
+						System.out.println("Item Clicked: " + itemIndex + "\t"
+								+ tmpURL);
+
+						// 載入影片
+						browser.loadURL(tmpURL);
+					}
+				}
+			}
+		});
+	}
+
+	public static void main(String[] args) throws InterruptedException,
+			IOException {
+		// TODO Auto-generated method stub
+		YoutubePlayer newPlayer = new YoutubePlayer();
 	}
 
 }
