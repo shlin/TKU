@@ -2,13 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/mmseg4j.jar"/>
-	<classpathentry kind="lib" path="lib/restfb-1.6.12.jar"/>
 	<classpathentry kind="lib" path="lib/jxbrowser-4.1.jar"/>
-	<classpathentry kind="lib" path="lib/jxbrowser-linux32-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/jxbrowser-linux64-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/jxbrowser-mac-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/jxbrowser-win-4.1.jar"/>
 	<classpathentry kind="lib" path="lib/license.jar"/>
+	<classpathentry kind="lib" path="lib/jxbrowser-linux32-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/mmseg4j.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
