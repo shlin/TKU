@@ -32,10 +32,8 @@ public class LGMain {
 					boolean tmpResult = false;
 					LinkedList<Integer> tmpList = gates.get(tmpID).getMember();
 					LinkedList<Boolean> tmpBoolList = new LinkedList<Boolean>();
-					for(int listIndex = 0; listIndex < tmpList.size() - 1; listIndex++)
+					for(int listIndex = 0; listIndex < tmpList.size(); listIndex++)
 						tmpBoolList.add(gates.get(tmpList.get(listIndex)).isBoolState());
-					
-//						tmpResult = LogicCompute.NAND(listIndex == 0 ? gates.get(tmpList.get(listIndex)).isBoolState() : tmpResult, gates.get(tmpList.get(listIndex + 1)).isBoolState());
 					gates.get(tmpID).setBoolState(LogicCompute.NAND(tmpBoolList));
 				}
 			}
