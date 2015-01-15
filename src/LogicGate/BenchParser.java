@@ -3,7 +3,7 @@ package LogicGate;
 import java.util.*;
 import java.util.regex.*;
 
-public class BenchAnalyzer {
+public class BenchParser {
 	private Scanner input;
 	
 	private TreeSet<Integer> inputGates = new TreeSet<Integer>();
@@ -19,10 +19,10 @@ public class BenchAnalyzer {
 	private Matcher mOutput = null;
 	private Matcher mStatement = null;
 
-	public BenchAnalyzer(Scanner input, TreeMap<Integer, Gate> gates) {
+	public BenchParser(Scanner input, TreeMap<Integer, Gate> gates) {
 		this.input = input;
 		this.mapGates = gates;
-		analyzer();
+		parser();
 //		debugPrint();
 	}
 	
@@ -41,7 +41,7 @@ public class BenchAnalyzer {
 //	G23gat = nand(G16gat, G19gat)
 
 	
-	void analyzer(){
+	void parser(){
 		int gateID = 0;
 		
 		while(input.hasNextLine()){

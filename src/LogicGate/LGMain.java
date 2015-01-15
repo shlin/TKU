@@ -10,11 +10,12 @@ public class LGMain {
 		// TODO Auto-generated method stub
 		String srcLine = "";
 		Scanner input = new Scanner(new File("exInputFile/LogicGate/Input/c17-100k.ip"));
+		PrintStream out = new PrintStream(new File("exInputFile/LogicGate/Input/c17-100k.out"));
 		
 		Iterator<Integer> itorInt;
 		Iterator<Gate> itorGate;
 		
-		BenchAnalyzer baC17 = new BenchAnalyzer(new Scanner(new File("exInputFile/LogicGate/Bench/c17.bench.txt")), gates);
+		BenchParser baC17 = new BenchParser(new Scanner(new File("exInputFile/LogicGate/Bench/c17.bench.txt")), gates);
 		while(input.hasNext()){
 			srcLine = input.next();
 			itorInt = baC17.getInputGates().iterator();
@@ -35,10 +36,12 @@ public class LGMain {
 				}
 			}
 			
+			itorInt = baC17.getOutputGates().iterator();
 			itorGate = gates.values().iterator();
-			while(itorGate.hasNext())
-				System.out.println(itorGate.next().isBoolState());
+			while(itorInt.hasNext())
+				out.print(gates.get(itorInt.next()).isBoolState() ? "1" : "0");
 			
+			out.println();
 		}
 	}
 
