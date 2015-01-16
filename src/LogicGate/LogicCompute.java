@@ -29,6 +29,14 @@ public class LogicCompute {
 		
 		return result;
 	}
+	
+	public static boolean BUFFER(LinkedList<Boolean> input) {
+		return input.getFirst();
+	}
+	
+	public static boolean NOT(LinkedList<Boolean> input){
+		return !input.getFirst();
+	}
 
 	public static boolean NAND(LinkedList<Boolean> input) {
 		return !AND(input);

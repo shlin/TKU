@@ -45,6 +45,9 @@ public class LGMain {
 			
 			out.println();
 		}
+		
+		gates = null;
+		baC17 = null;
 	}
 
 }

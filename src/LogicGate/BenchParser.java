@@ -41,7 +41,7 @@ public class BenchParser {
 //	G23gat = nand(G16gat, G19gat)
 
 	
-	void parser(){
+	public void parser(){
 		int gateID = 0;
 		
 		while(input.hasNextLine()){

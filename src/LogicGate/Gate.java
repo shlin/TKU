@@ -3,14 +3,43 @@ package LogicGate;
 import java.util.*;
 
 public class Gate {
+	private String gateID;
 	private boolean boolState;
+	private boolean isInput;
+	private boolean isOutput;
 	private String method;
-	private LinkedList<Integer> member;
+	private LinkedList<String> member;
 
-	public Gate(boolean boolState) {
+	public Gate(String gateID, boolean boolState, boolean input, boolean output) {
+		this.gateID = gateID;
 		this.boolState = boolState;
 		this.method = "";
-		this.member = new LinkedList<Integer>();
+		this.member = new LinkedList<String>();
+		this.isInput = input;
+		this.isOutput = output;
+	}
+	
+
+	/**
+	 * @return the gateID
+	 */
+	public String getGateID() {
+		return gateID;
+	}
+
+
+	/**
+	 * @return the isInput
+	 */
+	public boolean isInput() {
+		return isInput;
+	}
+
+	/**
+	 * @return the isOutput
+	 */
+	public boolean isOutput() {
+		return isOutput;
 	}
 
 	/**
@@ -37,7 +66,7 @@ public class Gate {
 	/**
 	 * @return the member
 	 */
-	public LinkedList<Integer> getMember() {
+	public LinkedList<String> getMember() {
 		return member;
 	}
 
@@ -51,7 +80,7 @@ public class Gate {
 	/**
 	 * @param member the member to set
 	 */
-	public void setMember(LinkedList<Integer> member) {
+	public void setMember(LinkedList<String> member) {
 		this.member = member;
 	}
 }
