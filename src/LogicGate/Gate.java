@@ -18,7 +18,6 @@ public class Gate {
 		this.isInput = input;
 		this.isOutput = output;
 	}
-	
 
 	/**
 	 * @return the gateID
