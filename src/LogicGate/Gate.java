@@ -1,37 +1,92 @@
 package LogicGate;
 
-import java.util.*;
+import java.util.LinkedList;
 
 public class Gate {
-	private String gateID;
-	private boolean boolState;
+	private String gateId;
+	private boolean boolStat;
 	private boolean isInput;
 	private boolean isOutput;
-	private String method;
-	private LinkedList<String> member;
+	private String stmtOperator;
+	private LinkedList<String> stmtMember;
 
-	public Gate(String gateID, boolean boolState, boolean input, boolean output) {
-		this.gateID = gateID;
-		this.boolState = boolState;
-		this.method = "";
-		this.member = new LinkedList<String>();
-		this.isInput = input;
-		this.isOutput = output;
+	public Gate(String id) {
+		gateId = id;
+		boolStat = false;
+		isInput = false;
+		isOutput = false;
+		stmtOperator = new String();
+		stmtMember = new LinkedList<String>();
 	}
 
 	/**
-	 * @return the gateID
+	 * @return the boolStat
 	 */
-	public String getGateID() {
-		return gateID;
+	public boolean isBoolStat() {
+		return boolStat;
 	}
 
+	/**
+	 * @param boolStat the boolStat to set
+	 */
+	public void setBoolStat(boolean boolStat) {
+		this.boolStat = boolStat;
+	}
+
+	/**
+	 * @return the stmtOperator
+	 */
+	public String getStmtOperator() {
+		return stmtOperator;
+	}
+
+	/**
+	 * @param stmtOperator
+	 *            the stmtOperator to set
+	 */
+	public void setStmtOperator(String stmtOperator) {
+		this.stmtOperator = stmtOperator;
+	}
+
+	/**
+	 * @return the stmtMember
+	 */
+	public LinkedList<String> getStmtMember() {
+		return stmtMember;
+	}
+
+	public void addStmtMember(String member) {
+		stmtMember.add(member);
+	}
+
+	/**
+	 * @return the gateId
+	 */
+	public String getGateId() {
+		return gateId;
+	}
+
+	/**
+	 * @param gateId
+	 *            the gateId to set
+	 */
+	public void setGateId(String gateId) {
+		this.gateId = gateId;
+	}
 
 	/**
 	 * @return the isInput
 	 */
 	public boolean isInput() {
 		return isInput;
+	}
+
+	/**
+	 * @param isInput
+	 *            the isInput to set
+	 */
+	public void setInput(boolean isInput) {
+		this.isInput = isInput;
 	}
 
 	/**
@@ -42,44 +97,10 @@ public class Gate {
 	}
 
 	/**
-	 * @return the boolState
+	 * @param isOutput
+	 *            the isOutput to set
 	 */
-	public boolean isBoolState() {
-		return boolState;
-	}
-
-	/**
-	 * @param boolState the boolState to set
-	 */
-	public void setBoolState(boolean boolState) {
-		this.boolState = boolState;
-	}
-
-	/**
-	 * @return the method
-	 */
-	public String getMethod() {
-		return method;
-	}
-
-	/**
-	 * @return the member
-	 */
-	public LinkedList<String> getMember() {
-		return member;
-	}
-
-	/**
-	 * @param method the method to set
-	 */
-	public void setMethod(String method) {
-		this.method = method;
-	}
-
-	/**
-	 * @param member the member to set
-	 */
-	public void setMember(LinkedList<String> member) {
-		this.member = member;
+	public void setOutput(boolean isOutput) {
+		this.isOutput = isOutput;
 	}
 }
