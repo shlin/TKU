@@ -28,7 +28,7 @@ public class Compute {
 	private void parse() {
 		int[] index = { 0 };
 
-		gatePool.values().parallelStream().filter(gate -> gate.isInput()).forEach(gate -> {
+		gatePool.values().stream().filter(gate -> gate.isInput()).forEach(gate -> {
 			gate.setBoolStat(charToBoolean(inputStr.charAt(index[0]++)));
 		});
 	}
@@ -75,12 +75,11 @@ public class Compute {
 	}
 
 	private boolean xor(LinkedList<String> member) {
-		boolean result = false;
+		boolean[] result = { false };
 
-		for (String gateId : member)
-			result = result ^ gatePool.get(gateId).isBoolStat();
+		member.forEach(gateId -> result[0] = result[0] ^ gatePool.get(gateId).isBoolStat());
 
-		return result;
+		return result[0];
 	}
 
 	private boolean not(LinkedList<String> member) {

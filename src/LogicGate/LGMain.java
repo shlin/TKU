@@ -8,55 +8,52 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class LGMain {
-	private static File dirBench = new File("exInputFile/LogicGate/Bench");
-	private static File dirInput = new File("exInputFile/LogicGate/Input");
-	private static File dirOutput = new File("exInputFile/LogicGate/Output");
-
-	private static HashMap<Integer, Bench> benchs = new HashMap<Integer, Bench>();
-	private static HashMap<Integer, LinkedList<Input>> inputs = new HashMap<Integer, LinkedList<Input>>();
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		String outputDir = "exInputFile/LogicGate/Output";
+		HashMap<Integer, Bench> benchs = new HashMap<Integer, Bench>();
+		HashMap<Integer, LinkedList<Input>> inputs = new HashMap<Integer, LinkedList<Input>>();
 
-		// long start = System.currentTimeMillis();
 		// Read bench files
-		Arrays.asList(dirBench.listFiles()).parallelStream()
+		Arrays.asList(new File("exInputFile/LogicGate/Bench").listFiles()).parallelStream()
 				.filter(benchFile -> benchFile.getName().endsWith(".bench.txt")).forEach(benchFile -> {
 					Bench currentBench = new Bench(benchFile);
 					benchs.put(currentBench.getBenchId(), currentBench);
+					currentBench = null;
 				});
 
 		// Read input files
-		Arrays.asList(dirInput.listFiles()).parallelStream().filter(inputFile -> inputFile.getName().endsWith(".ip"))
-				.forEach(inputFile -> {
+		Arrays.asList(new File("exInputFile/LogicGate/Input").listFiles()).parallelStream()
+				.filter(inputFile -> inputFile.getName().endsWith(".ip")).forEach(inputFile -> {
 					Input currentInput = new Input(inputFile);
 					if (!inputs.containsKey(currentInput.getBenchId())) {
 						LinkedList<Input> newInputList = new LinkedList<Input>();
 						inputs.put(currentInput.getBenchId(), newInputList);
 					}
 					inputs.get(currentInput.getBenchId()).add(currentInput);
+					currentInput = null;
 				});
 
-		// System.out.println(System.currentTimeMillis() - start);
 		// Compute
-		inputs.forEach((benchId, inputList) -> {
-			inputList.forEach(input -> {
+		inputs.forEach((benchId, inputFiles) -> {
+			Bench bench = benchs.get(benchId);
+
+			inputFiles.forEach(input -> {
 				try {
-					PrintStream output = new PrintStream(new File(
-							dirOutput.getAbsolutePath() + "/" + input.getInputFile().getName().replace("ip", "out")));
-					StringBuffer sb = new StringBuffer();
+					PrintStream ps = new PrintStream(
+							outputDir + "/" + input.getInputFile().getName().replace("ip", "out"));
 
-					input.getInputList().parallelStream().forEach(inputStr -> {
-						if (!benchs.get(benchId).getComputedPool().containsKey(inputStr)) {
-							Compute compute = new Compute(inputStr, cloneGatePool(benchs.get(benchId).getGatePool()));
-							benchs.get(benchId).getComputedPool().put(inputStr, compute.doCompute());
-						}
-						sb.append(String.format("%s\t%s\n", inputStr,
-								benchs.get(benchId).getComputedPool().get(inputStr)));
+					input.getInputList().parallelStream()
+							.filter(inputStr -> !bench.getComputedPool().containsKey(inputStr)).forEach(inputStr -> {
+						bench.getComputedPool().put(inputStr,
+								new Compute(inputStr, cloneGatePool(bench.getGatePool())).doCompute());
 					});
-
-					output.print(sb.toString());
-					output.close();
+					
+					input.getInputList().forEach(inputStr -> {
+						ps.printf("%s\t%s\n", inputStr, bench.getComputedPool().get(inputStr));
+					});
+					
+					ps.close();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
